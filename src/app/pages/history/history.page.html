@@ -1,0 +1,30 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title size="small">History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-toolbar color="primary" class="ion-no-border-top">
+    <ion-segment [(ngModel)]="iValue" (ionChange)="segmentChanged($event)">
+      <ion-segment-button *ngFor="let value of values " [value]="value">
+        <ion-label>{{ value }}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <div [ngSwitch]="iValue">
+    <div *ngSwitchCase="'positions'">
+      <app-positions></app-positions>
+    </div>
+    <div *ngSwitchCase="'orders'">
+      <app-orders></app-orders>
+    </div>
+    <div *ngSwitchCase="'deals'">
+      <app-deals></app-deals>
+    </div>
+  </div>
+</ion-content>
