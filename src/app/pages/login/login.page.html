@@ -1,44 +1,37 @@
 <ion-header>
   <ion-toolbar color="primary" class="ion-no-border">
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button
+        [routerLink]="['/tabs/chat']"
+        routerLinkActive="router-link-active"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title size="small">Login/Signup</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div
-    style="
-      height: 100%;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    "
-  >
-    <ion-text style="font-size: 10px; margin: 5px 0">
-      Latin characters and digits without spaces
-    </ion-text>
+  <div class="container">
     <ion-item>
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="email"></ion-input>
+      <ion-input type="email" [(ngModel)]="email" required="true"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input
+        type="password"
+        [(ngModel)]="password"
+        required="true"
+        minlength="6"
+      ></ion-input>
     </ion-item>
-    <ion-button color="warning">Get An Acdount</ion-button>
-    <ion-text style="font-size: 10px; margin: 5px 0">or</ion-text>
-    <ion-button color="white">
-      <ion-img
-        src="../../../assets/google_logo.png"
-        style="width: 50px"
-      ></ion-img>
+    <ion-button color="warning" (click)="login()" class="btn">Login</ion-button>
+    <ion-text>or</ion-text>
+    <ion-button color="white" class="btn">
+      <ion-icon name="logo-google" class="google_icon"></ion-icon>
       <p style="color: black; font-size: 15px">Sign in with Google</p>
     </ion-button>
-    <ion-text style="font-size: 10px; margin: 5px 0">
+    <ion-text>
       If you don't have an account, please
       <a [routerLink]="['/register']" routerLinkActive="router-link-active">
         Register

@@ -1,48 +1,58 @@
 <ion-header>
   <ion-toolbar color="primary" class="ion-no-border">
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button
+        [routerLink]="['/tabs/chat']"
+        routerLinkActive="router-link-active"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title size="small">Account Registration</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div
-    style="
-      height: 100%;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    "
-  >
-    <ion-item>
+  <div class="container">
+    <!-- <ion-item>
       <ion-label position="floating">Login</ion-label>
       <ion-input type="text"></ion-input>
     </ion-item>
-    <ion-text style="font-size: 10px; margin: 5px 0">
+    <ion-text >
       Latin characters and digits without spaces
+    </ion-text> -->
+    <ion-text color="danger" *ngIf="err">
+      Please enter valid email id and password
     </ion-text>
     <ion-item>
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="email"></ion-input>
+      <ion-input
+        type="email"
+        [(ngModel)]="email"
+        required="true"
+        pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"
+      ></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input
+        type="password"
+        [(ngModel)]="password"
+        required="true"
+        minlength="6"
+      >
+      </ion-input>
     </ion-item>
-    <ion-button color="warning">Get An Acdount</ion-button>
-    <ion-text style="font-size: 10px; margin: 5px 0">or</ion-text>
-    <ion-button color="white">
-      <ion-img
-        src="../../../assets/google_logo.png"
-        style="width: 50px"
-      ></ion-img>
+    <ion-text color="danger" *ngIf="passErr">
+      Password should be minimum 6 digits
+    </ion-text>
+    <ion-button color="warning" (click)="createAccount()" class="btn">
+      Create An Account
+    </ion-button>
+    <ion-text>or</ion-text>
+    <ion-button color="white" class="btn">
+      <ion-icon name="logo-google" class="google_icon"></ion-icon>
       <p style="color: black; font-size: 15px">Sign in with Google</p>
     </ion-button>
-    <ion-text style="font-size: 10px; margin: 5px 0">
+    <ion-text>
       If you have an account, please
       <a [routerLink]="['/login']" routerLinkActive="router-link-active">
         Login

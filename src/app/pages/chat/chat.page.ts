@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
+import { ChatPopOverComponent } from 'src/app/components/chat-pop-over/chat-pop-over.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-chat',
@@ -6,10 +9,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chat.page.scss'],
 })
 export class ChatPage implements OnInit {
+  constructor(
+    public authService: AuthService,
+    public popoverCtrl: PopoverController
+  ) {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  async chatPopover(ev: any) {
+    const popover = await this.popoverCtrl.create({
+      component: ChatPopOverComponent,
+      event: ev,
+      cssClass: 'popover',
+      translucent: true,
+      animated: true,
+    });
+    await popover.present();
+
+    const { role } = await popover.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
-
 }

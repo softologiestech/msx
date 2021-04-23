@@ -4,12 +4,18 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title size="small">Messages</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon
+        name="ellipsis-vertical"
+        (click)="chatPopover($event)"
+      ></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content> </ion-content>
 
-<ion-footer class="ion-no-border">
+<ion-footer class="ion-no-border" *ngIf="!authService.isLoggedIn()">
   <div style="justify-content: space-around; display: flex">
     <ion-button
       color="warning"

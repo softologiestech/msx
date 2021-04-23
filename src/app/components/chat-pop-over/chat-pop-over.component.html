@@ -1,0 +1,29 @@
+<ion-button
+  fill="clear"
+  size="small"
+  class="ion-text-center"
+  [routerLink]="['/profile']"
+  routerLinkActive="router-link-active"
+  (click)="popoverCtrl.dismiss()"
+  *ngIf="authService.isLoggedIn()"
+>
+  Profile
+</ion-button>
+<ion-button
+  fill="clear"
+  size="small"
+  disabled="true"
+  *ngIf="!authService.isLoggedIn()"
+  class="ion-text-center"
+>
+  Logout
+</ion-button>
+<ion-button
+  fill="clear"
+  size="small"
+  *ngIf="authService.isLoggedIn()"
+  (click)="logout()"
+  class="ion-text-center"
+>
+  Logout
+</ion-button>
