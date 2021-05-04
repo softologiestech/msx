@@ -3,6 +3,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 
+import * as firebase from 'firebase/app';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -28,6 +30,17 @@ export class LoginPage implements OnInit {
         this.router.navigate(['tabs/chat']);
 
         this.loadingCtrl.dismiss();
+      })
+      .catch((err) => console.log(err));
+  }
+
+  loginGoogle() {
+    this.afAuth
+      .signInWithPopup(new firebase.default.auth.GoogleAuthProvider())
+      .then((data) => {
+        this.router.navigate(['tabs/chat']);
+
+        // console.log(data);
       })
       .catch((err) => console.log(err));
   }

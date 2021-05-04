@@ -3,8 +3,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-import { AuthService } from 'src/app/services/auth.service';
 import { ValidatorsService } from 'src/app/services/validators.service';
+
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-register',
@@ -39,10 +40,7 @@ export class RegisterPage implements OnInit {
       this.afAuth
         .createUserWithEmailAndPassword(this.email, this.password)
         .then((data) => {
-          this.db.doc(`users/${data.user.uid}`).set({
-            email: this.email,
-            uid: data.user.uid,
-          });
+          this.updateDb(this.email, data.user.uid);
 
           this.router.navigate(['tabs/chat']);
           this.loadingCtrl.dismiss();
@@ -53,6 +51,24 @@ export class RegisterPage implements OnInit {
     } else {
       this.err = true;
     }
+  }
+
+  googleRegister() {
+    this.afAuth
+      .signInWithPopup(new firebase.default.auth.GoogleAuthProvider())
+      .then((data) => {
+        this.updateDb(data.user.email, data.user.uid);
+
+        this.router.navigate(['tabs/chat']);
+        // console.log(data);
+      });
+  }
+
+  updateDb(email: string, uid: string) {
+    this.db.doc(`users/${uid}`).set({
+      email: email,
+      uid: uid,
+    });
   }
 
   async loadingSpinner() {

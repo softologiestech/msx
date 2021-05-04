@@ -13,6 +13,8 @@ export const environment = {
     appId: '1:883300175924:web:5aeb8aab9fe59db6cffa61',
     measurementId: 'G-770815V33F',
   },
+  wsUri: 'ws://test.lisuns.com:4575',
+  password: '7de118a2-062d-43c5-a3fc-875d52cdd9f9',
 };
 
 /*
