@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  HAMMER_GESTURE_CONFIG,
+} from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
@@ -15,6 +19,9 @@ import { HTTP } from '@ionic-native/http/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+import { IonicGestureConfig } from '../IonicGestureConfig';
+import { LongPressModule } from 'ionic-long-press';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,9 +34,11 @@ import { AppComponent } from './app.component';
     AngularFireAuthModule,
     AngularFirestoreModule,
     HttpClientModule,
+    LongPressModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HAMMER_GESTURE_CONFIG, useClass: IonicGestureConfig },
     HTTP,
   ],
   bootstrap: [AppComponent],

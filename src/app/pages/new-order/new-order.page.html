@@ -1,0 +1,202 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ info.Symbol }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-select
+    value="instant execution"
+    interface="popover"
+    style="
+      text-align: center;
+      margin: 10px;
+      padding: 10px;
+      border-bottom: 1px solid grey;
+    "
+  >
+    <ion-select-option value="instant execution">
+      Instant Exeution
+    </ion-select-option>
+    <ion-select-option value="buy limit">Buy Limit</ion-select-option>
+    <ion-select-option value="sell limit">Sell Limit</ion-select-option>
+    <ion-select-option value="buy stop">Buy Stop</ion-select-option>
+    <ion-select-option value="sell stop">Sell Stop</ion-select-option>
+  </ion-select>
+
+  <div
+    style="display: flex; justify-content: space-evenly; align-items: center"
+  >
+    <ion-button
+      fill="outline"
+      size="small"
+      color="danger"
+      expand="block"
+      (click)="subtract(10)"
+    >
+      -10
+    </ion-button>
+    <ion-button
+      fill="outline"
+      size="small"
+      color="danger"
+      expand="block"
+      (click)="subtract(1)"
+    >
+      -1
+    </ion-button>
+    <ion-text>{{ counter }}</ion-text>
+    <ion-button
+      fill="outline"
+      size="small"
+      color="success"
+      expand="block"
+      (click)="add(1)"
+    >
+      +1
+    </ion-button>
+    <ion-button
+      fill="outline"
+      size="small"
+      color="success"
+      expand="block"
+      (click)="add(10)"
+    >
+      +10
+    </ion-button>
+  </div>
+
+  <div style="align-items: center">
+    <div style="display: flex; justify-content: space-evenly">
+      <p style="font-size: 20px; color: grey">{{ info.Bid }}</p>
+      <p style="font-size: 20px; color: grey">{{ info.Ask }}</p>
+    </div>
+  </div>
+
+  <div
+    style="display: flex; justify-content: space-between; align-items: center"
+  >
+    <div
+      style="
+        margin: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        border-bottom: 1px solid tomato;
+      "
+    >
+      <ion-button
+        fill="clear"
+        size="small"
+        color="danger"
+        (click)="subtractSL()"
+      >
+        -
+      </ion-button>
+      <ion-input
+        type="number"
+        class="ion-text-center"
+        [(ngModel)]="sl === 0 ? '' : sl"
+        placeholder="SL"
+      >
+      </ion-input>
+      <ion-button fill="clear" size="small" color="success" (click)="addSL()">
+        +
+      </ion-button>
+    </div>
+    <div
+      style="
+        margin: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        border-bottom: 1px solid green;
+      "
+    >
+      <ion-button
+        fill="clear"
+        size="small"
+        color="danger"
+        (click)="subtractTP()"
+      >
+        -
+      </ion-button>
+      <ion-input
+        type="number"
+        class="ion-text-center"
+        [(ngModel)]="tp === 0 ? '' : tp"
+        placeholder="TP"
+      >
+      </ion-input>
+      <ion-button fill="clear" size="small" color="success" (click)="addTP()">
+        +
+      </ion-button>
+    </div>
+  </div>
+  <div
+    style="
+      margin: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      border-bottom: 1px solid blue;
+    "
+  >
+    <ion-button
+      fill="clear"
+      size="small"
+      color="danger"
+      (click)="subtractDeviation()"
+    >
+      -
+    </ion-button>
+    <ion-input
+      type="number"
+      class="ion-text-center"
+      [(ngModel)]="deviation === 0 ? '' : deviation"
+      placeholder="Deviation"
+    >
+    </ion-input>
+    <ion-button
+      fill="clear"
+      size="small"
+      color="success"
+      (click)="addDeviation()"
+    >
+      +
+    </ion-button>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div style="display: flex; align-items: center">
+    <ion-button fill="clear" expand="full" style="width: 100%">
+      <ion-text
+        color="danger"
+        style="padding: 5px; font-size: 15px; font-weight: bold"
+      >
+        SELL
+      </ion-text>
+    </ion-button>
+    <div
+      style="
+        width: 1px;
+        height: 20px;
+        background: grey;
+        margin-top: 0;
+        position: relative;
+      "
+    ></div>
+    <ion-button fill="clear" expand="full" style="width: 100%">
+      <ion-text
+        color="primary"
+        style="padding: 5px; font-size: 15px; font-weight: bold"
+      >
+        BUY
+      </ion-text>
+    </ion-button>
+  </div>
+</ion-footer>

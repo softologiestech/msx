@@ -46,6 +46,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/login/login.module').then((m) => m.LoginPageModule),
   },
+  {
+    path: 'new-order',
+    loadChildren: () => import('./pages/new-order/new-order.module').then( m => m.NewOrderPageModule)
+  },
 ];
 @NgModule({
   imports: [
