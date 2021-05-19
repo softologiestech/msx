@@ -22,10 +22,16 @@ export class QuotesPage implements OnInit {
   ngOnInit() {}
 
   fetchData() {
-    this.http.get('https://skymcx.in/API_DemoREST.php', {}, {}).then((res) => {
-      this.serverData = JSON.parse(res.data);
-      console.log(this.serverData);
-    });
+    this.http
+      .get(
+        'https://skymcx.in/softRates.php?API_Key=12bb3d7a3db3ce6acd79ac08ad01a84b',
+        {},
+        {}
+      )
+      .then((res) => {
+        this.serverData = JSON.parse(res.data);
+        console.log(this.serverData);
+      });
   }
 
   async openBottomSheet(data: any) {

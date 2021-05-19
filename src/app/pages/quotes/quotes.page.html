@@ -16,7 +16,7 @@
 </ion-header>
 
 <ion-content>
-  <div *ngFor="let data of serverData.rows">
+  <div *ngFor="let data of serverData">
     <ion-card (click)="openBottomSheet(data)">
       <ion-card-header>
         <ion-card-title>{{ data.Symbol }}</ion-card-title>
