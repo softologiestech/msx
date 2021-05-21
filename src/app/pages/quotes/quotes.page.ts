@@ -10,16 +10,39 @@ import { ActionSheetController } from '@ionic/angular';
 })
 export class QuotesPage implements OnInit {
   serverData: any = [];
+  // askBid: any = [];
+  // askUp: boolean;
+  // bidUp: boolean;
 
   constructor(
     private http: HTTP,
     private asCtrl: ActionSheetController,
     private router: Router
   ) {
-    this.fetchData();
+    // if (this.serverData) {
+    //   this.serverData.forEach((e) => {
+    //     this.askBid.push({
+    //       Ask: e.Ask,
+    //       Bid: e.Bid,
+    //     });
+    //     console.log(this.askBid);
+    //   });
+    // }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    setInterval(() => {
+      this.fetchData();
+
+      // for (let i = 0; i < this.serverData.length; i++) {
+      //   if (this.serverData[i].Ask < this.askBid[i].Ask) this.askUp = false;
+      //   else if (this.serverData[i].Ask > this.askBid[i].Ask) this.askUp = true;
+
+      //   if (this.serverData[i].Ask < this.askBid[i].Bid) this.bidUp = false;
+      //   else if (this.serverData[i].Bid > this.askBid[i].Bid) this.bidUp = true;
+      // }
+    }, 500);
+  }
 
   fetchData() {
     this.http
@@ -30,7 +53,14 @@ export class QuotesPage implements OnInit {
       )
       .then((res) => {
         this.serverData = JSON.parse(res.data);
-        console.log(this.serverData);
+
+        // this.serverData.forEach((e) => {
+        //   this.askBid.push({
+        //     Ask: e.Ask,
+        //     Bid: e.Bid,
+        //   });
+        // });
+        // console.log(this.serverData);
       });
   }
 

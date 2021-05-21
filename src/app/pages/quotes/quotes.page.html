@@ -18,31 +18,44 @@
 <ion-content>
   <div *ngFor="let data of serverData">
     <ion-card (click)="openBottomSheet(data)">
-      <ion-card-header>
-        <ion-card-title>{{ data.Symbol }}</ion-card-title>
+      <ion-card-header class="ion-no-margin">
+        <ion-card-title style="font-size: 25px">
+          <b>{{ data.Symbol }}</b>
+        </ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <div style="display: flex; justify-content: space-between">
-          <ion-text>
-            <b>Bid</b>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+          "
+        >
+          <div>
+            <ion-text>
+              <b>High </b>
+              {{ data.High }}
+            </ion-text>
             <br />
-            {{ data.Bid }}
-          </ion-text>
-          <ion-text>
-            <b>Ask</b>
-            <br />
-            {{ data.Ask }}
-          </ion-text>
-          <ion-text>
-            <b>High</b>
-            <br />
-            {{ data.High }}
-          </ion-text>
-          <ion-text>
-            <b>Low</b>
-            <br />
-            {{ data.Low }}
-          </ion-text>
+            <ion-text>
+              <b>Low </b>
+              {{ data.Low }}
+            </ion-text>
+          </div>
+          <div
+            style="display: flex; justify-content: space-between; width: 65%"
+          >
+            <ion-text>
+              <span class="price">{{ data.Bid | number: '1.0-2' }}</span>
+              <br />
+              <b style="text-align: center">Bid</b>
+            </ion-text>
+            <ion-text>
+              <span class="price">{{ data.Ask | number: '1.0-2' }}</span>
+              <br />
+              <b style="text-align: center">Ask</b>
+            </ion-text>
+          </div>
         </div>
       </ion-card-content>
     </ion-card>
