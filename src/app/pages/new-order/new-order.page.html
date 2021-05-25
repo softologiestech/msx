@@ -3,11 +3,11 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ info.Symbol }}</ion-title>
+    <ion-title>{{ info.key }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content style="--background: #18191a">
   <ion-select
     value="instant execution"
     interface="popover"
@@ -15,6 +15,7 @@
       text-align: center;
       margin: 10px;
       padding: 10px;
+      color: white;
       border-bottom: 1px solid grey;
     "
   >
@@ -71,11 +72,11 @@
 
   <div style="align-items: center">
     <div style="display: flex; justify-content: space-evenly">
-      <p style="font-size: 30px; color: grey; font-weight: bold">
-        {{ info.Bid }}
+      <p style="font-size: 30px; color: grey; font-weight: bold; color: white">
+        {{ info.value.depth.buy[0].price }}
       </p>
-      <p style="font-size: 30px; color: grey; font-weight: bold">
-        {{ info.Ask }}
+      <p style="font-size: 30px; color: grey; font-weight: bold; color: white">
+        {{ info.value.depth.sell[0].price }}
       </p>
     </div>
   </div>
@@ -176,7 +177,7 @@
 </ion-content>
 
 <ion-footer>
-  <div style="display: flex; align-items: center">
+  <div style="display: flex; align-items: center; background-color: #242526">
     <ion-button fill="clear" expand="full" style="width: 100%">
       <ion-text
         color="danger"

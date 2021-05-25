@@ -15,12 +15,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div *ngFor="let data of serverData">
-    <ion-card (click)="openBottomSheet(data)">
+<ion-content style="--background: #18191a">
+  <div *ngFor="let data of serverData.data | keyvalue">
+    <ion-card (click)="openBottomSheet(data)" style="--background: #242526">
       <ion-card-header class="ion-no-margin">
         <ion-card-title style="font-size: 25px">
-          <b>{{ data.Symbol }}</b>
+          <b style="color: white">{{ data.key }}</b>
         </ion-card-title>
       </ion-card-header>
       <ion-card-content>
@@ -32,28 +32,32 @@
           "
         >
           <div>
-            <ion-text>
+            <ion-text style="color: white">
               <b>High </b>
-              {{ data.High }}
+              {{ data.value['ohlc'].high | number: '1.0-2' }}
             </ion-text>
             <br />
-            <ion-text>
+            <ion-text style="color: white">
               <b>Low </b>
-              {{ data.Low }}
+              {{ data.value['ohlc'].low | number: '1.0-2' }}
             </ion-text>
           </div>
           <div
             style="display: flex; justify-content: space-between; width: 65%"
           >
-            <ion-text>
-              <span class="price">{{ data.Bid | number: '1.0-2' }}</span>
+            <ion-text style="color: white">
+              <span class="price">
+                {{ data.value['depth'].sell[0].price | number: '1.0-2' }}
+              </span>
               <br />
-              <b style="text-align: center">Bid</b>
+              <ion-text class="ion-text-right"><b>Bid</b></ion-text>
             </ion-text>
-            <ion-text>
-              <span class="price">{{ data.Ask | number: '1.0-2' }}</span>
+            <ion-text style="color: white">
+              <span class="price">
+                {{ data.value['depth'].buy[0].price | number: '1.0-2' }}
+              </span>
               <br />
-              <b style="text-align: center">Ask</b>
+              <ion-text class="ion-text-right"><b>Ask</b></ion-text>
             </ion-text>
           </div>
         </div>

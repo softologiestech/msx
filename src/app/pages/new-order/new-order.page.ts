@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-order',
@@ -13,11 +13,8 @@ export class NewOrderPage implements OnInit {
   tp: number = 0;
   deviation: number = 0;
 
-  constructor(private route: ActivatedRoute) {
-    this.route.queryParams.subscribe((data) => {
-      this.info = data;
-      // console.log(data)
-    });
+  constructor(private router: Router) {
+    this.info = this.router.getCurrentNavigation().extras.state;
   }
 
   ngOnInit() {}

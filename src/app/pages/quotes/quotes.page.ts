@@ -10,69 +10,43 @@ import { ActionSheetController } from '@ionic/angular';
 })
 export class QuotesPage implements OnInit {
   serverData: any = [];
-  // askBid: any = [];
-  // askUp: boolean;
-  // bidUp: boolean;
 
   constructor(
     private http: HTTP,
     private asCtrl: ActionSheetController,
     private router: Router
-  ) {
-    // if (this.serverData) {
-    //   this.serverData.forEach((e) => {
-    //     this.askBid.push({
-    //       Ask: e.Ask,
-    //       Bid: e.Bid,
-    //     });
-    //     console.log(this.askBid);
-    //   });
-    // }
-  }
+  ) {}
 
   ngOnInit() {
     setInterval(() => {
       this.fetchData();
-
-      // for (let i = 0; i < this.serverData.length; i++) {
-      //   if (this.serverData[i].Ask < this.askBid[i].Ask) this.askUp = false;
-      //   else if (this.serverData[i].Ask > this.askBid[i].Ask) this.askUp = true;
-
-      //   if (this.serverData[i].Ask < this.askBid[i].Bid) this.bidUp = false;
-      //   else if (this.serverData[i].Bid > this.askBid[i].Bid) this.bidUp = true;
-      // }
     }, 500);
   }
 
   fetchData() {
     this.http
       .get(
-        'https://skymcx.in/softRates.php?API_Key=12bb3d7a3db3ce6acd79ac08ad01a84b',
+        'https://skymcx.in/softRatesJSON1.php?API_Key=12bb3d7a3db3ce6acd79ac08ad01a84b',
         {},
         {}
       )
-      .then((res) => {
+      .then((res: any) => {
         this.serverData = JSON.parse(res.data);
 
-        // this.serverData.forEach((e) => {
-        //   this.askBid.push({
-        //     Ask: e.Ask,
-        //     Bid: e.Bid,
-        //   });
-        // });
-        // console.log(this.serverData);
+        // console.log(this.serverData.data);
       });
   }
 
   async openBottomSheet(data: any) {
     const actionSheet = await this.asCtrl.create({
-      header: data.Symbol,
+      header: data.key,
+      cssClass: 'bottomSheet',
       buttons: [
         {
           text: 'New Order',
           handler: () => {
             this.router.navigate(['/new-order'], {
-              queryParams: data,
+              state: data,
             });
           },
         },
