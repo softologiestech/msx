@@ -50,6 +50,10 @@ const routes: Routes = [
     path: 'new-order',
     loadChildren: () => import('./pages/new-order/new-order.module').then( m => m.NewOrderPageModule)
   },
+  {
+    path: 'info',
+    loadChildren: () => import('./pages/info/info.module').then( m => m.InfoPageModule)
+  },
 ];
 @NgModule({
   imports: [

@@ -49,7 +49,7 @@
     >
       -1
     </ion-button>
-    <ion-text>{{ counter }}</ion-text>
+    <ion-text style="color: white">{{ counter }}</ion-text>
     <ion-button
       fill="outline"
       size="small"
@@ -106,6 +106,7 @@
         class="ion-text-center"
         [(ngModel)]="sl === 0 ? '' : sl"
         placeholder="SL"
+        style="color: white"
       >
       </ion-input>
       <ion-button fill="clear" size="small" color="success" (click)="addSL()">
@@ -134,6 +135,7 @@
         class="ion-text-center"
         [(ngModel)]="tp === 0 ? '' : tp"
         placeholder="TP"
+        style="color: white"
       >
       </ion-input>
       <ion-button fill="clear" size="small" color="success" (click)="addTP()">
@@ -163,6 +165,7 @@
       class="ion-text-center"
       [(ngModel)]="deviation === 0 ? '' : deviation"
       placeholder="Deviation"
+      style="color: white"
     >
     </ion-input>
     <ion-button

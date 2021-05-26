@@ -1,0 +1,30 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ info.key }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="--background: #01141b">
+  <ion-toolbar color="primary" class="ion-no-border-top">
+    <ion-segment [(ngModel)]="iValue" (ionChange)="segmentChanged($event)">
+      <ion-segment-button *ngFor="let value of values " [value]="value">
+        <ion-label>{{ value }}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <div [ngSwitch]="iValue">
+    <div *ngSwitchCase="'chart'">
+      <app-charts [data]="info"></app-charts>
+    </div>
+    <div *ngSwitchCase="'technical'">
+      <app-technical></app-technical>
+    </div>
+    <div *ngSwitchCase="'news'">
+      <app-news></app-news>
+    </div>
+  </div>
+</ion-content>
