@@ -17,22 +17,22 @@
             margin: 5px;
           "
         >
-          <ion-text style="color: white; font-size: 20px">
+          <!-- <ion-text style="color: white; font-size: 20px">
             <b>
-              {{ data.value["average_price"] | number: "1.0-2" }}
+              {{ data.value["last_price"] | number: "1.0-2" }}
             </b>
-          </ion-text>
+          </ion-text> -->
           <div
-            style="display: flex; justify-content: space-between; margin: 5px"
+            style="display: flex; justify-content: space-between; width: 100%"
           >
             <ion-text style="color: white; font-size: 20px">
               <b>
-                {{ data.value["depth"].buy[0].price | number: "1.0-2" }}
+                {{ data.value["buy"] | number: "1.0-2" }}
               </b>
             </ion-text>
             <ion-text style="color: white; font-size: 20px">
               <b>
-                {{ data.value["depth"].sell[0].price | number: "1.0-2" }}
+                {{ data.value["sell"] | number: "1.0-2" }}
               </b>
             </ion-text>
           </div>
@@ -47,40 +47,19 @@
         >
           <ion-text style="color: white">
             <b>O: </b>
-            {{ data.value["ohlc"].open | number: "1.0-2" }}
+            {{ data.value["open"] | number: "1.0-2" }}
           </ion-text>
           <ion-text style="color: white">
             <b>H: </b>
-            {{ data.value["ohlc"].high | number: "1.0-2" }}
+            {{ data.value["high"] | number: "1.0-2" }}
           </ion-text>
           <ion-text style="color: white">
             <b>L: </b>
-            {{ data.value["ohlc"].low | number: "1.0-2" }}
+            {{ data.value["low"] | number: "1.0-2" }}
           </ion-text>
           <ion-text style="color: white">
             <b>C: </b>
-            {{ data.value["ohlc"].close | number: "1.0-2" }}
-          </ion-text>
-        </div>
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 5px;
-          "
-        >
-          <ion-text style="color: white">
-            <b>V: </b>
-            {{ data.value["volume"] | number: "1.0-2" }}
-          </ion-text>
-          <ion-text style="color: white">
-            <b>OI: </b>
-            {{ data.value["oi"] | number: "1.0-2" }}
-          </ion-text>
-          <ion-text style="color: white">
-            <b>ATP: </b>
-            {{ data.value["average_price"] | number: "1.0-2" }}
+            {{ data.value["close"] | number: "1.0-2" }}
           </ion-text>
         </div>
       </div>

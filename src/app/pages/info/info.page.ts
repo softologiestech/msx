@@ -13,6 +13,7 @@ export class InfoPage implements OnInit {
 
   constructor(private router: Router) {
     this.info = this.router.getCurrentNavigation().extras.state;
+    // console.log(this.info);
   }
 
   ngOnInit() {}
