@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title size="small">Messages</ion-title>
+    <ion-title size="small">Profile</ion-title>
     <ion-buttons slot="end">
       <ion-icon
         name="ellipsis-vertical"
@@ -13,23 +13,34 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
-
-<ion-footer class="ion-no-border" *ngIf="!authService.isLoggedIn()">
-  <div style="justify-content: space-around; display: flex">
-    <ion-button
+<ion-content>
+  <div
+    style="
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    "
+  >
+    <!-- <ion-button
       color="warning"
       style="flex: 1"
       [routerLink]="['/register']"
       routerLinkActive="router-link-active"
       >Register</ion-button
-    >
+    > -->
     <ion-button
-      color="white"
+      style="width: 90%; height: 50px"
+      color="primary"
       [routerLink]="['/login']"
       routerLinkActive="router-link-active"
     >
-      <ion-text color="primary">Sign In</ion-text>
+      <ion-text style="font-size: 20px; font-weight: bold; color: white">
+        Sign In
+      </ion-text>
     </ion-button>
   </div>
-</ion-footer>
+</ion-content>
+
+<!-- <ion-footer class="ion-no-border" *ngIf="!authService.isLoggedIn()">
+</ion-footer> -->

@@ -1,11 +1,14 @@
 <div style="padding: 10px">
-  <ion-card style="--background: #011d28">
+  <ion-card style="--background: #03384c">
     <ion-card-header>
       <ion-card-title>
         <ion-text>
-          <b>{{ data.key }}</b>
+          <b style="color: white; font-size: 25px">{{ data.key }}</b>
         </ion-text>
       </ion-card-title>
+      <ion-card-subtitle class="ion-text-right">
+        <p style="color: white">{{ data.value["timestamp"] | date }}</p>
+      </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <div style="display: flex; flex-direction: column">
@@ -17,22 +20,23 @@
             margin: 5px;
           "
         >
-          <!-- <ion-text style="color: white; font-size: 20px">
-            <b>
-              {{ data.value["last_price"] | number: "1.0-2" }}
-            </b>
-          </ion-text> -->
           <div
             style="display: flex; justify-content: space-between; width: 100%"
           >
-            <ion-text style="color: white; font-size: 20px">
+            <ion-text
+              style="font-size: 25px"
+              [color]="newData.buy > newData.last_price ? 'primary' : 'danger'"
+            >
               <b>
-                {{ data.value["buy"] | number: "1.0-2" }}
+                {{ newData.buy | number: "1.0-2" }}
               </b>
             </ion-text>
-            <ion-text style="color: white; font-size: 20px">
+            <ion-text
+              style="font-size: 25px"
+              [color]="newData.sell > newData.last_price ? 'primary' : 'danger'"
+            >
               <b>
-                {{ data.value["sell"] | number: "1.0-2" }}
+                {{ newData.sell | number: "1.0-2" }}
               </b>
             </ion-text>
           </div>

@@ -1,17 +1,13 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "msx",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "www",
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 0
-    }
-  },
-  "cordova": {},
-  "server": {
-    "url": "http://192.168.0.6:8100",
-    "cleartext": true
-  }
+	"appId": "io.ionic.starter",
+	"appName": "msx",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "www",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 0
+		}
+	},
+	"cordova": {}
 }

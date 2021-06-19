@@ -34,7 +34,7 @@ const routes: Routes = [
           import('../news/news.module').then((m) => m.NewsPageModule),
       },
       {
-        path: 'chat',
+        path: 'person',
         loadChildren: () =>
           import('../chat/chat.module').then((m) => m.ChatPageModule),
       },

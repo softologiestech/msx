@@ -48,12 +48,35 @@ const routes: Routes = [
   },
   {
     path: 'new-order',
-    loadChildren: () => import('./pages/new-order/new-order.module').then( m => m.NewOrderPageModule)
+    loadChildren: () =>
+      import('./pages/new-order/new-order.module').then(
+        (m) => m.NewOrderPageModule
+      ),
   },
   {
     path: 'info',
-    loadChildren: () => import('./pages/info/info.module').then( m => m.InfoPageModule)
+    loadChildren: () =>
+      import('./pages/info/info.module').then((m) => m.InfoPageModule),
   },
+  {
+    path: 'search',
+    loadChildren: () =>
+      import('./pages/search/search.module').then((m) => m.SearchPageModule),
+  },
+  {
+    path: 'mcx',
+    loadChildren: () =>
+      import('./pages/mcx/mcx.module').then((m) => m.McxPageModule),
+  },
+  {
+    path: 'nse',
+    loadChildren: () =>
+      import('./pages/nse/nse.module').then((m) => m.NsePageModule),
+  },  {
+    path: 'comex',
+    loadChildren: () => import('./pages/comex/comex.module').then( m => m.ComexPageModule)
+  },
+
 ];
 @NgModule({
   imports: [

@@ -12,11 +12,11 @@
 
 <ion-content>
   <div class="container">
-    <ion-item>
+    <ion-item style="width: 90%">
       <ion-label position="floating">Email</ion-label>
       <ion-input type="email" [(ngModel)]="email" required="true"></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item style="width: 90%">
       <ion-label position="floating">Password</ion-label>
       <ion-input
         type="password"
@@ -25,7 +25,9 @@
         minlength="6"
       ></ion-input>
     </ion-item>
-    <ion-button color="warning" (click)="login()" class="btn">Login</ion-button>
+    <ion-button color="warning" (click)="login()" class="btn">
+      <ion-text style="font-size: 20px"> Login </ion-text>
+    </ion-button>
     <ion-text>or</ion-text>
     <ion-button color="white" class="btn" (click)="loginGoogle()">
       <ion-icon name="logo-google" class="google_icon"></ion-icon>

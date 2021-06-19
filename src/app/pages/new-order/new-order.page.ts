@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HTTP } from '@ionic-native/http/ngx';
 
 @Component({
   selector: 'app-new-order',
@@ -8,17 +9,43 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class NewOrderPage implements OnInit {
   info: any = {};
+  newData: any = [];
+  serverData: any = {};
   counter: number = 1;
   sl: number = 0;
   tp: number = 0;
   deviation: number = 0;
 
-  constructor(private router: Router) {
+  constructor(private http: HTTP, private router: Router) {
     this.info = this.router.getCurrentNavigation().extras.state;
     // console.log(this.info);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    setInterval(() => {
+      this.fetchData();
+    }, 500);
+  }
+
+  fetchData() {
+    this.http
+      .get(
+        'https://api.datakick.in/REST/softRatesJSON.php?API_Key=12bb3d7a3db3ce6acd79ac08ad01a84b',
+        {},
+        {}
+      )
+      .then((res: any) => {
+        var data = JSON.parse(res.data);
+        this.serverData = data.rows;
+
+        Object.entries(this.serverData).forEach((key) => {
+          if (key[0] === this.info.key) {
+            this.newData = key[1];
+            // console.log(this.newData.buy, this.newData.sell);
+          }
+        });
+      });
+  }
 
   add(n: number) {
     this.counter = this.counter + n;

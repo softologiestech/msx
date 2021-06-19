@@ -72,12 +72,16 @@
 
   <div style="align-items: center">
     <div style="display: flex; justify-content: space-evenly">
-      <p style="font-size: 30px; color: grey; font-weight: bold; color: white">
-        {{ info.value.buy }}
-      </p>
-      <p style="font-size: 30px; color: grey; font-weight: bold; color: white">
-        {{ info.value.sell }}
-      </p>
+      <ion-text
+        [color]="newData.buy > newData.last_price ? 'primary' : 'danger'"
+      >
+        <p style="font-size: 30px; font-weight: bold">{{ newData.buy }}</p>
+      </ion-text>
+      <ion-text
+        [color]="newData.sell > newData.last_price ? 'primary' : 'danger'"
+      >
+        <p style="font-size: 30px; font-weight: bold">{{ newData.sell }}</p>
+      </ion-text>
     </div>
   </div>
 
@@ -143,7 +147,7 @@
       </ion-button>
     </div>
   </div>
-  <div
+  <!-- <div
     style="
       margin: 10px;
       display: flex;
@@ -176,7 +180,7 @@
     >
       +
     </ion-button>
-  </div>
+  </div> -->
 </ion-content>
 
 <ion-footer>

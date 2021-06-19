@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { QuotesPageRoutingModule } from './quotes-routing.module';
+import { SearchPageRoutingModule } from './search-routing.module';
 
-import { QuotesPage } from './quotes.page';
+import { SearchPage } from './search.page';
 import { SharedModule } from 'src/app/components/shared.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { SharedModule } from 'src/app/components/shared.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    QuotesPageRoutingModule,
+    SearchPageRoutingModule,
     SharedModule,
   ],
-  declarations: [QuotesPage],
+  declarations: [SearchPage],
 })
-export class QuotesPageModule {}
+export class SearchPageModule {}

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { HTTP } from '@ionic-native/http/ngx';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-quotes',
@@ -8,42 +8,24 @@ import { HTTP } from '@ionic-native/http/ngx';
   styleUrls: ['./quotes.page.scss'],
 })
 export class QuotesPage implements OnInit {
-  serverData: any = [];
+  data: any = [];
 
-  constructor(private http: HTTP, private router: Router) {}
+  constructor() {}
 
-  ngOnInit() {}
-
-  ngAfterViewInit() {
-    setInterval(() => {
-      this.fetchData();
-    }, 500);
+  ngOnInit() {
+    this.allStorage();
   }
 
-  fetchData() {
-    this.http
-      .get(
-        'https://api.datakick.in/REST/softRatesJSON.php?API_Key=12bb3d7a3db3ce6acd79ac08ad01a84b',
-        {},
-        {}
-      )
-      .then((res: any) => {
-        var data = JSON.parse(res.data);
-        this.serverData = data.rows;
+  allStorage() {
+    var values = [],
+      keys = Object.keys(localStorage),
+      i = keys.length;
 
-        // console.log(this.serverData);
-      });
-  }
+    while (i--) {
+      values.push(JSON.parse(localStorage.getItem(keys[i])));
+    }
 
-  newOrder(data: any) {
-    this.router.navigate(['/new-order'], {
-      state: data,
-    });
-  }
-
-  info(data: any) {
-    this.router.navigate(['/info'], {
-      state: data,
-    });
+    this.data = values;
+    console.log(this.data);
   }
 }

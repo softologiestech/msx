@@ -7,6 +7,7 @@ import { ChartsComponent } from './charts/charts.component';
 import { TechnicalComponent } from './technical/technical.component';
 import { NewsComponent } from './news/news.component';
 import { IonicModule } from '@ionic/angular';
+import { MonthComponent } from './month/month.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { IonicModule } from '@ionic/angular';
     ChartsComponent,
     TechnicalComponent,
     NewsComponent,
+    MonthComponent,
   ],
   exports: [
     PositionsComponent,
@@ -24,6 +26,7 @@ import { IonicModule } from '@ionic/angular';
     ChartsComponent,
     TechnicalComponent,
     NewsComponent,
+    MonthComponent,
   ],
   imports: [CommonModule, IonicModule],
 })

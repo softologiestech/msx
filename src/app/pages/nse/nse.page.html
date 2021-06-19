@@ -1,31 +1,25 @@
 <ion-header>
   <ion-toolbar class="ion-no-border" color="primary">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
-
-    <ion-title size="small">Quotes</ion-title>
-    <ion-buttons slot="end">
-      <ion-button
-        [routerLink]="['/search']"
-        routerLinkActive="router-link-active"
-      >
-        <ion-icon name="search-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-title size="small">NSE</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content style="--background: #01141b">
-  <ion-virtual-scroll [items]="data" [itemHeight]="itemHeightFn">
-    <ion-card *virtualItem="let d" style="--background: #03384c">
+  <ion-virtual-scroll
+    [items]="serverData | keyvalue"
+    [itemHeight]="itemHeightFn"
+  >
+    <ion-card *virtualItem="let data" style="--background: #03384c">
       <ion-card-header class="ion-no-margin">
         <ion-card-title style="font-size: 25px">
-          <b style="color: white">{{ d.value.symbol }}</b>
+          <b style="color: white">{{ data.key }}</b>
         </ion-card-title>
         <!-- <ion-card-subtitle class="ion-text-right">
-        <p style="color: white">{{ data.value['timestamp'] | date }}</p>
-      </ion-card-subtitle> -->
+          <p style="color: white">{{ data.value['timestamp'] | date }}</p>
+        </ion-card-subtitle> -->
       </ion-card-header>
       <ion-card-content>
         <div
@@ -55,37 +49,37 @@
                 style="font-size: 25px; font-weight: bold"
                 [color]="data.value['buy'] > data.value['last_price'] ? 'primary' : 'danger'"
               >
-                {{ d.value.buy | number: '1.0-2' }}
+                {{ data.value['buy'] | number: '1.0-2' }}
               </ion-text>
 
               <ion-text
                 style="font-size: 25px; font-weight: bold"
-                [color]="d.value['sell'] > d.value['last_price'] ? 'primary' : 'danger'"
+                [color]="data.value['sell'] > data.value['last_price'] ? 'primary' : 'danger'"
               >
-                {{ d.value.sell | number: '1.0-2' }}
+                {{ data.value['sell'] | number: '1.0-2' }}
               </ion-text>
             </div>
             <div style="display: flex; justify-content: space-between">
               <ion-text style="color: white">
                 <b>O: </b>
-                {{ d.value.open | number: '1.0-2' }}
+                {{ data.value['ohlc']['open'] | number: '1.0-2' }}
               </ion-text>
               <ion-text style="color: white">
                 <b>H: </b>
-                {{ d.value.high | number: '1.0-2' }}
+                {{ data.value['ohlc']['high'] | number: '1.0-2' }}
               </ion-text>
               <ion-text style="color: white">
                 <b>L: </b>
-                {{ d.value.low | number: '1.0-2' }}
+                {{ data.value['ohlc']['low'] | number: '1.0-2' }}
               </ion-text>
               <ion-text style="color: white">
                 <b>LP: </b>
-                {{ d.value.last_price | number: '1.0-2' }}
+                {{ data.value['last_price'] | number: '1.0-2' }}
               </ion-text>
             </div>
           </div>
         </div>
       </ion-card-content>
     </ion-card>
-  </ion-virtual-scroll></ion-content
->
+  </ion-virtual-scroll>
+</ion-content>

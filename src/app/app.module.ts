@@ -8,7 +8,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireFunctionsModule } from '@angular/fire/functions';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
@@ -35,6 +35,7 @@ import { LongPressModule } from 'ionic-long-press';
     AngularFirestoreModule,
     HttpClientModule,
     LongPressModule,
+    AngularFireDatabaseModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

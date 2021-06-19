@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar class="ion-no-border" color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title size="small">Search Symbol</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="--background: #01141b">
+  <ion-searchbar
+    [(ngModel)]="search"
+    (ionChange)="searchSymbol($event)"
+  ></ion-searchbar>
+  <div *ngFor="let p of pages">
+    <ion-item
+      [routerLink]="['/' + p.url ]"
+      routerLinkActive="router-link-active"
+      style="--background: #01141b"
+    >
+      <ion-text>
+        <span style="color: white">{{ p.name | uppercase }}</span>
+      </ion-text>
+    </ion-item>
+  </div>
+</ion-content>

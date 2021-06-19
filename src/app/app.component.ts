@@ -15,8 +15,13 @@ export class AppComponent {
   sideMenu() {
     this.navigate = [
       {
-        title: 'Quotes',
+        title: 'MSX',
         url: 'tabs/quotes',
+        icon: 'analytics-outline',
+      },
+      {
+        title: 'NSE',
+        url: 'tabs/nse',
         icon: 'analytics-outline',
       },
       {
@@ -40,8 +45,8 @@ export class AppComponent {
         icon: 'newspaper-outline',
       },
       {
-        title: 'Chat',
-        url: 'tabs/chat',
+        title: 'Person',
+        url: 'tabs/person',
         icon: 'chatbubble-ellipses-outline',
       },
       {
