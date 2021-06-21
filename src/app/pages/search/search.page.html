@@ -8,10 +8,7 @@
 </ion-header>
 
 <ion-content style="--background: #01141b">
-  <ion-searchbar
-    [(ngModel)]="search"
-    (ionChange)="searchSymbol($event)"
-  ></ion-searchbar>
+  
   <div *ngFor="let p of pages">
     <ion-item
       [routerLink]="['/' + p.url ]"

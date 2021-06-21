@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 
@@ -8,11 +8,16 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./mcx.page.scss'],
 })
 export class McxPage implements OnInit {
+  @ViewChild('search') search: any;
+
   serverData: Array<object> = [];
   date: number;
+  symbol: string = '';
   searchItems: any = [];
+  symbolData: any = [];
   data: any = [];
   month: string = '';
+  allSymbols: any = [];
   months: Array<any> = [];
   monthNames = [
     'January',
@@ -28,6 +33,8 @@ export class McxPage implements OnInit {
     'November',
     'December',
   ];
+  isSymbolAvailable = false;
+  displaySymbols: any = [];
 
   constructor(private dataService: DataService, private router: Router) {}
 
@@ -41,7 +48,19 @@ export class McxPage implements OnInit {
 
     setInterval(() => {
       this.fetchData();
+
+      this.searchSymbol();
     }, 500);
+  }
+
+  getSymbols() {
+    for (var key in this.serverData) {
+      if (!this.allSymbols.includes(this.serverData[key]['symbol'])) {
+        this.allSymbols.push(this.serverData[key]['symbol']);
+      }
+    }
+
+    // console.log(this.allSymbols);
   }
 
   getMonth() {
@@ -67,11 +86,14 @@ export class McxPage implements OnInit {
   }
 
   fetchData() {
+    this.allSymbols = [];
+
     this.dataService.mcxData().then((res: any) => {
       var data = JSON.parse(res.data);
       this.serverData = data.rows;
 
       // console.log(this.serverData);
+      this.getSymbols();
     });
   }
 
@@ -93,5 +115,43 @@ export class McxPage implements OnInit {
       localStorage.setItem(data.key, JSON.stringify(data));
       console.log(data.key);
     }
+  }
+
+  searchSymbol() {
+    this.symbolData = [];
+
+    for (var key in this.serverData) {
+      if (
+        this.serverData[key]['symbol']
+          .toLowerCase()
+          .trim()
+          .includes(this.symbol.toLowerCase()) &&
+        this.symbol !== ''
+      ) {
+        this.symbolData.push(this.serverData[key]);
+      }
+    }
+
+    console.log(this.symbolData);
+  }
+
+  showSymbol() {
+    this.displaySymbols = [];
+    this.isSymbolAvailable = true;
+
+    for (let i = 0; i < this.allSymbols.length; i++) {
+      if (
+        this.allSymbols[i].toLowerCase().trim().includes(this.symbol) &&
+        this.symbol !== ''
+      ) {
+        this.displaySymbols.push(this.allSymbols[i]);
+        console.log(this.displaySymbols);
+      }
+    }
+  }
+
+  selectItem(s: string) {
+    this.symbol = s;
+    this.search.setFocus();
   }
 }

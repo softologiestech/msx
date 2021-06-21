@@ -27,7 +27,7 @@ export class ComexPage implements OnInit {
       var data = JSON.parse(res.data);
       this.serverData = data.rows;
 
-      console.log(this.serverData);
+      // console.log(this.serverData);
     });
   }
 
