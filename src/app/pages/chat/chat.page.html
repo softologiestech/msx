@@ -3,8 +3,9 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title size="small">Profile</ion-title>
-    <ion-buttons slot="end">
+    <ion-title size="small" *ngIf="uid">Profile</ion-title>
+    <ion-title size="small" *ngIf="!uid">Login</ion-title>
+    <ion-buttons slot="end" *ngIf="uid">
       <ion-icon
         name="ellipsis-vertical"
         (click)="chatPopover($event)"
@@ -14,32 +15,8 @@
 </ion-header>
 
 <ion-content>
-  <div
-    style="
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-    "
-  >
-    <!-- <ion-button
-      color="warning"
-      style="flex: 1"
-      [routerLink]="['/register']"
-      routerLinkActive="router-link-active"
-      >Register</ion-button
-    > -->
-    <ion-button
-      style="width: 90%; height: 50px"
-      color="primary"
-      [routerLink]="['/login']"
-      routerLinkActive="router-link-active"
-    >
-      <ion-text style="font-size: 20px; font-weight: bold; color: white">
-        Sign In
-      </ion-text>
-    </ion-button>
-  </div>
+  <app-profile *ngIf="uid"></app-profile>
+  <app-login *ngIf="!uid"></app-login>
 </ion-content>
 
 <!-- <ion-footer class="ion-no-border" *ngIf="!authService.isLoggedIn()">

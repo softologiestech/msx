@@ -1,17 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-
-import * as firebase from 'firebase/app';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   username: string = '';
   password: string = '';
   loginData: any = [];
@@ -25,7 +22,7 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {}
 
-  ionViewDidLeave() {
+  ngOnDestroy() {
     this.sub.unsubscribe();
   }
 
@@ -45,11 +42,10 @@ export class LoginPage implements OnInit {
             .then((data) => {
               console.log(data.user);
               localStorage.setItem('uid', data.user.uid);
-              localStorage.setItem('type', doc[0].type);
               localStorage.setItem('id', doc[0].id);
 
               this.loadingCtrl.dismiss();
-              this.router.navigate(['/profile']);
+              this.router.navigate(['/tabs/person']);
             })
             .catch((err) => {
               console.log(err);

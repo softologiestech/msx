@@ -1,4 +1,4 @@
-<ion-button
+<!-- <ion-button
   fill="clear"
   size="small"
   class="ion-text-center"
@@ -17,11 +17,11 @@
   class="ion-text-center"
 >
   Logout
-</ion-button>
+</ion-button> -->
 <ion-button
   fill="clear"
   size="small"
-  *ngIf="authService.isLoggedIn()"
+  *ngIf="uid"
   (click)="logout()"
   class="ion-text-center"
 >

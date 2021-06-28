@@ -8,6 +8,11 @@ import { TechnicalComponent } from './technical/technical.component';
 import { NewsComponent } from './news/news.component';
 import { IonicModule } from '@ionic/angular';
 import { MonthComponent } from './month/month.component';
+import { McxComponent } from './mcx/mcx.component';
+import { NseComponent } from './nse/nse.component';
+import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,6 +23,10 @@ import { MonthComponent } from './month/month.component';
     TechnicalComponent,
     NewsComponent,
     MonthComponent,
+    McxComponent,
+    NseComponent,
+    LoginComponent,
+    ProfileComponent,
   ],
   exports: [
     PositionsComponent,
@@ -27,7 +36,11 @@ import { MonthComponent } from './month/month.component';
     TechnicalComponent,
     NewsComponent,
     MonthComponent,
+    McxComponent,
+    NseComponent,
+    LoginComponent,
+    ProfileComponent,
   ],
-  imports: [CommonModule, IonicModule],
+  imports: [CommonModule, IonicModule, FormsModule],
 })
 export class SharedModule {}

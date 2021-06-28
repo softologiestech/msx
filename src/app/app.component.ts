@@ -15,20 +15,15 @@ export class AppComponent {
   sideMenu() {
     this.navigate = [
       {
-        title: 'MSX',
+        title: 'Quotes',
         url: 'tabs/quotes',
         icon: 'analytics-outline',
       },
-      {
-        title: 'NSE',
-        url: 'tabs/nse',
-        icon: 'analytics-outline',
-      },
-      {
-        title: 'Charts',
-        url: 'tabs/charts',
-        icon: 'stats-chart-outline',
-      },
+      // {
+      //   title: 'Charts',
+      //   url: 'tabs/charts',
+      //   icon: 'stats-chart-outline',
+      // },
       {
         title: 'Trade',
         url: 'tabs/trade',
@@ -39,11 +34,11 @@ export class AppComponent {
         url: 'tabs/history',
         icon: 'file-tray-outline',
       },
-      {
-        title: 'News',
-        url: 'tabs/news',
-        icon: 'newspaper-outline',
-      },
+      // {
+      //   title: 'News',
+      //   url: 'tabs/news',
+      //   icon: 'newspaper-outline',
+      // },
       {
         title: 'Person',
         url: 'tabs/person',

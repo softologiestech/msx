@@ -9,6 +9,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./chat.page.scss'],
 })
 export class ChatPage implements OnInit {
+  uid: string = localStorage.getItem('uid');
+  id: string = localStorage.getItem('id');
+
   constructor(
     public authService: AuthService,
     public popoverCtrl: PopoverController

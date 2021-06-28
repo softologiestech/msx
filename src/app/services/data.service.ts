@@ -17,7 +17,7 @@ export class DataService {
 
   nseData() {
     return this.http.get(
-      'https://api.datakick.in/NSE/ohlc?API_Key=f4f5f600e9f5610&m=FEDERALBNK/BAJAJELEC/ESSARSHPNG',
+      'https://api.datakick.in/NFO/softRESTNFO.php?API_Key=355bc98e476f71eff2bc2d92ff95c037',
       {},
       {}
     );

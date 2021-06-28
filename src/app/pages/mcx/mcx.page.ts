@@ -16,35 +16,36 @@ export class McxPage implements OnInit {
   searchItems: any = [];
   symbolData: any = [];
   data: any = [];
-  month: string = '';
+  expiry: Array<any> = [];
+  expiry_date: string = '';
   allSymbols: any = [];
-  months: Array<any> = [];
-  monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
+  // months: Array<any> = [];
+  // monthNames = [
+  //   'January',
+  //   'February',
+  //   'March',
+  //   'April',
+  //   'May',
+  //   'June',
+  //   'July',
+  //   'August',
+  //   'September',
+  //   'October',
+  //   'November',
+  //   'December',
+  // ];
   isSymbolAvailable = false;
   displaySymbols: any = [];
 
   constructor(private dataService: DataService, private router: Router) {}
 
   ngOnInit() {
-    this.date = Date.now();
+    // this.date = Date.now();
 
-    var now = new Date();
-    for (let i = 0; i < 3; i++) {
-      this.months.push(this.monthNames[now.getMonth() + i]);
-    }
+    // var now = new Date();
+    // for (let i = 0; i < 3; i++) {
+    //   this.months.push(this.monthNames[now.getMonth() + i]);
+    // }
 
     setInterval(() => {
       this.fetchData();
@@ -63,23 +64,23 @@ export class McxPage implements OnInit {
     // console.log(this.allSymbols);
   }
 
-  getMonth() {
-    this.data = [];
+  // getMonth() {
+  //   this.data = [];
 
-    console.log(this.month);
+  //   // console.log(this.month);
 
-    for (var key in this.serverData) {
-      var arr = this.serverData[key]['expiry_date'].split('-');
-      var month_index = parseInt(arr[1], 10) - 1;
+  //   for (var key in this.serverData) {
+  //     var arr = this.serverData[key]['expiry_date'].split('-');
+  //     var month_index = parseInt(arr[1], 10) - 1;
 
-      // console.log(this.monthNames[month_index]);
+  //     // console.log(this.monthNames[month_index]);
 
-      if (this.monthNames[month_index] === this.month) {
-        this.data.push(this.serverData[key]);
-        // console.log(this.data);
-      }
-    }
-  }
+  //     if (this.monthNames[month_index] === this.month) {
+  //       this.data.push(this.serverData[key]);
+  //       // console.log(this.data);
+  //     }
+  //   }
+  // }
 
   itemHeightFn(item, index) {
     return 180;
@@ -110,15 +111,19 @@ export class McxPage implements OnInit {
   }
 
   addSymbol(data: any) {
-    if (localStorage.getItem(data.key)) return;
+    var mcxArray = [];
+
+    if (mcxArray.includes(data)) return;
     else {
-      localStorage.setItem(data.key, JSON.stringify(data));
-      console.log(data.key);
+      mcxArray.push(data);
+      localStorage.setItem('mcxArray', JSON.stringify(mcxArray));
+      // console.log(mcxArray);
     }
   }
 
   searchSymbol() {
     this.symbolData = [];
+    this.expiry = [];
 
     for (var key in this.serverData) {
       if (
@@ -129,10 +134,19 @@ export class McxPage implements OnInit {
         this.symbol !== ''
       ) {
         this.symbolData.push(this.serverData[key]);
+        if (
+          this.symbol.toLowerCase() ===
+          this.serverData[key]['symbol'].toLowerCase().trim()
+        )
+          this.expiry.push(this.serverData[key]['expiry_date']);
       }
     }
 
-    console.log(this.symbolData);
+    // console.log(this.expiry);
+  }
+
+  getExpiry(expiry_date: string) {
+    console.log(expiry_date);
   }
 
   showSymbol() {
@@ -145,7 +159,7 @@ export class McxPage implements OnInit {
         this.symbol !== ''
       ) {
         this.displaySymbols.push(this.allSymbols[i]);
-        console.log(this.displaySymbols);
+        // console.log(this.displaySymbols);
       }
     }
   }
