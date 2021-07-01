@@ -14,8 +14,9 @@ export class McxPage implements OnInit {
   date: number;
   symbol: string = '';
   searchItems: any = [];
-  symbolData: any = [];
+  symbolData: Array<any> = [];
   data: any = [];
+  mcxArray: Array<any> = [];
   expiry: Array<any> = [];
   expiry_date: string = '';
   allSymbols: any = [];
@@ -111,13 +112,14 @@ export class McxPage implements OnInit {
   }
 
   addSymbol(data: any) {
-    var mcxArray = [];
+    if (this.mcxArray.includes(data)) {
+      console.log(this.mcxArray);
+      return;
+    } else {
+      this.mcxArray.push(data);
 
-    if (mcxArray.includes(data)) return;
-    else {
-      mcxArray.push(data);
-      localStorage.setItem('mcxArray', JSON.stringify(mcxArray));
-      // console.log(mcxArray);
+      localStorage.setItem('mcxArray', JSON.stringify(this.mcxArray));
+      console.log(this.mcxArray);
     }
   }
 
@@ -127,10 +129,8 @@ export class McxPage implements OnInit {
 
     for (var key in this.serverData) {
       if (
-        this.serverData[key]['symbol']
-          .toLowerCase()
-          .trim()
-          .includes(this.symbol.toLowerCase()) &&
+        this.serverData[key]['symbol'].toLowerCase().trim() ===
+          this.symbol.toLowerCase() &&
         this.symbol !== ''
       ) {
         this.symbolData.push(this.serverData[key]);
@@ -146,7 +146,14 @@ export class McxPage implements OnInit {
   }
 
   getExpiry(expiry_date: string) {
-    console.log(expiry_date);
+    // console.log(expiry_date);
+
+    for (var key in this.symbolData) {
+      if (this.symbolData[key]['expiry_date'] === expiry_date) {
+        console.log(this.symbolData[key]);
+      }
+      // console.log(this.symbolData[key]['expiry_date']);
+    }
   }
 
   showSymbol() {

@@ -18,6 +18,7 @@ export class NsePage implements OnInit {
   data: any = [];
   expiry_date: string = '';
   expiry: Array<any> = [];
+  nseArray: Array<any> = [];
   allSymbols: any = [];
   // months: Array<any> = [];
   // monthNames = [
@@ -111,12 +112,10 @@ export class NsePage implements OnInit {
   }
 
   addSymbol(data: any) {
-    var nseArray = [];
-
-    if (nseArray.includes(data)) return;
+    if (this.nseArray.includes(data)) return;
     else {
-      nseArray.push(data);
-      localStorage.setItem('nseArray', JSON.stringify(nseArray));
+      this.nseArray.push(data);
+      localStorage.setItem('nseArray', JSON.stringify(this.nseArray));
       // console.log(nseArray);
     }
   }
@@ -127,10 +126,8 @@ export class NsePage implements OnInit {
 
     for (var key in this.serverData) {
       if (
-        this.serverData[key]['symbol']
-          .toLowerCase()
-          .trim()
-          .includes(this.symbol.toLowerCase()) &&
+        this.serverData[key]['symbol'].toLowerCase().trim() ===
+          this.symbol.toLowerCase() &&
         this.symbol !== ''
       ) {
         this.symbolData.push(this.serverData[key]);

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WalletService } from 'src/app/services/wallet.service';
 
 @Component({
   selector: 'app-positions',
@@ -6,9 +7,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./positions.component.scss'],
 })
 export class PositionsComponent implements OnInit {
+  id: string = localStorage.getItem('id');
+  buyDetails: Array<any> = [];
 
-  constructor() { }
+  constructor(private walletService: WalletService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.walletService
+      .getBuyDetails(this.id)
+      .valueChanges()
+      .subscribe((data) => {
+        this.buyDetails = data;
 
+        console.log(this.buyDetails);
+      });
+  }
+
+  itemHeightFn(item, index) {
+    return 180;
+  }
 }

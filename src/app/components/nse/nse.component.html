@@ -17,6 +17,9 @@
         <ion-text style="color: white">
           Expiry: {{ d.value.expiry_date | date }}
         </ion-text>
+        <ion-text style="color: white">
+          Lot Size: {{ d.value.lot_size }}
+        </ion-text>
         <div>
           <ion-text style="color: white">NC: </ion-text>
           <ion-text [color]="d.value.net_change >= 0 ? 'primary' : 'danger'">
@@ -39,7 +42,6 @@
             flex-direction: column;
             justify-content: space-between;
             width: 100%;
-            margin: 0 10px;
           "
         >
           <div

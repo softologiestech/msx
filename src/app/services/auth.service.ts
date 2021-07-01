@@ -36,12 +36,12 @@ export class AuthService {
       .then(() => console.log('Verifiation Maoil Sent'));
   }
 
-  recoverPassword(email: string) {
-    this.auth
-      .sendPasswordResetEmail(email)
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
-  }
+  // recoverPassword(email: string) {
+  //   this.auth
+  //     .sendPasswordResetEmail(email)
+  //     .then((data) => console.log(data))
+  //     .catch((err) => console.log(err));
+  // }
 
   findData(type: string, username: string) {
     return this.db.collection(type, (ref) =>

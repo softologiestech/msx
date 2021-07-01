@@ -9,7 +9,7 @@ import { DataService } from 'src/app/services/data.service';
 export class NseComponent implements OnInit {
   nseData: Array<any> = [];
   filterArray: Array<any> = [];
-  nseArray: Array<any> = JSON.parse(localStorage.getItem('nseArray'));
+  nseArray: Array<any>;
 
   constructor(private dataService: DataService) {}
 
@@ -18,6 +18,9 @@ export class NseComponent implements OnInit {
 
     setInterval(() => {
       this.nse();
+
+      this.nseArray = JSON.parse(localStorage.getItem('nseArray'));
+      this.filterData();
     }, 500);
   }
 
@@ -27,7 +30,6 @@ export class NseComponent implements OnInit {
       this.nseData = data.rows;
 
       // console.log(this.nseData);
-      this.filterData();
     });
   }
 

@@ -13,6 +13,7 @@ import { NseComponent } from './nse/nse.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,6 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     ProfileComponent,
   ],
-  imports: [CommonModule, IonicModule, FormsModule],
+  imports: [CommonModule, IonicModule, FormsModule, RouterModule],
 })
 export class SharedModule {}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -9,21 +10,22 @@ import { DataService } from 'src/app/services/data.service';
 export class McxComponent implements OnInit {
   mcxData: Array<any> = [];
   filterArray: Array<any> = [];
-  mcxArray: Array<any> = JSON.parse(localStorage.getItem('mcxArray'));
+  mcxArray: Array<any>;
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService, private router: Router) {}
 
   ngOnInit() {
     // console.log(this.mcxArray);
 
     setInterval(() => {
-      this.nse();
+      this.mcx();
 
+      this.mcxArray = JSON.parse(localStorage.getItem('mcxArray'));
       this.filterData();
     }, 500);
   }
 
-  nse() {
+  mcx() {
     this.dataService.mcxData().then((res: any) => {
       var data = JSON.parse(res.data);
       this.mcxData = data.rows;
@@ -54,5 +56,11 @@ export class McxComponent implements OnInit {
         }
       }
     }
+  }
+
+  goto(d: any) {
+    this.router.navigate(['/new-order'], {
+      state: d,
+    });
   }
 }

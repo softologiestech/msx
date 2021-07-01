@@ -4,14 +4,14 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title size="small">MSX</ion-title>
-    <ion-item color="primary" slot="end">
+    <ion-item color="primary" slot="end" *ngIf="symbol">
       <ion-select
         interface="popover"
         [(ngModel)]="expiry_date"
         (ionChange)="getExpiry(expiry_date)"
       >
         <ion-select-option *ngFor="let e of expiry">
-          {{ e | date }}
+          {{ e }}
         </ion-select-option>
       </ion-select>
     </ion-item>
@@ -81,7 +81,6 @@
               flex-direction: column;
               justify-content: space-between;
               width: 100%;
-              margin: 0 10px;
             "
           >
             <div

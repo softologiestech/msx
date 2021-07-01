@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./chat.page.scss'],
 })
 export class ChatPage implements OnInit {
-  uid: string = localStorage.getItem('uid');
+  uid: string;
   id: string = localStorage.getItem('id');
 
   constructor(
@@ -17,7 +17,11 @@ export class ChatPage implements OnInit {
     public popoverCtrl: PopoverController
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    setInterval(() => {
+      this.uid = localStorage.getItem('uid');
+    });
+  }
 
   async chatPopover(ev: any) {
     const popover = await this.popoverCtrl.create({

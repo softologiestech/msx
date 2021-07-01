@@ -3,12 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ info.key }}</ion-title>
+    <ion-title>{{ info.value.symbol }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content style="--background: #18191a">
-  <ion-select
+  <!-- <ion-select
     value="instant execution"
     interface="popover"
     style="
@@ -26,10 +26,15 @@
     <ion-select-option value="sell limit">Sell Limit</ion-select-option>
     <ion-select-option value="buy stop">Buy Stop</ion-select-option>
     <ion-select-option value="sell stop">Sell Stop</ion-select-option>
-  </ion-select>
+  </ion-select> -->
 
   <div
-    style="display: flex; justify-content: space-evenly; align-items: center"
+    style="
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      margin-top: 20px;
+    "
   >
     <ion-button
       fill="outline"
@@ -97,25 +102,25 @@
         border-bottom: 1px solid tomato;
       "
     >
-      <ion-button
+      <!-- <ion-button
         fill="clear"
         size="small"
         color="danger"
         (click)="subtractSL()"
       >
         -
-      </ion-button>
+      </ion-button> -->
       <ion-input
         type="number"
         class="ion-text-center"
-        [(ngModel)]="sl === 0 ? '' : sl"
+        [(ngModel)]="sl"
         placeholder="SL"
         style="color: white"
       >
       </ion-input>
-      <ion-button fill="clear" size="small" color="success" (click)="addSL()">
+      <!-- <ion-button fill="clear" size="small" color="success" (click)="addSL()">
         +
-      </ion-button>
+      </ion-button> -->
     </div>
     <div
       style="
@@ -126,25 +131,25 @@
         border-bottom: 1px solid green;
       "
     >
-      <ion-button
+      <!-- <ion-button
         fill="clear"
         size="small"
         color="danger"
         (click)="subtractTP()"
       >
         -
-      </ion-button>
+      </ion-button> -->
       <ion-input
         type="number"
         class="ion-text-center"
-        [(ngModel)]="tp === 0 ? '' : tp"
+        [(ngModel)]="tp"
         placeholder="TP"
         style="color: white"
       >
       </ion-input>
-      <ion-button fill="clear" size="small" color="success" (click)="addTP()">
+      <!-- <ion-button fill="clear" size="small" color="success" (click)="addTP()">
         +
-      </ion-button>
+      </ion-button> -->
     </div>
   </div>
   <!-- <div
@@ -185,7 +190,41 @@
 
 <ion-footer>
   <div style="display: flex; align-items: center; background-color: #242526">
-    <ion-button fill="clear" expand="full" style="width: 100%">
+    <ion-button
+      fill="clear"
+      expand="full"
+      style="width: 100%"
+      (click)="buy(info)"
+      *ngIf="id"
+    >
+      <ion-text
+        color="primary"
+        style="padding: 5px; font-size: 15px; font-weight: bold"
+      >
+        BUY
+      </ion-text>
+    </ion-button>
+    <ion-button
+      fill="clear"
+      expand="full"
+      style="width: 100%"
+      [disabled]="true"
+      *ngIf="!id"
+    >
+      <ion-text
+        color="primary"
+        style="padding: 5px; font-size: 15px; font-weight: bold"
+      >
+        BUY
+      </ion-text>
+    </ion-button>
+    <ion-button
+      fill="clear"
+      expand="full"
+      style="width: 100%"
+      (click)="sell(info)"
+      *ngIf="id"
+    >
       <ion-text
         color="danger"
         style="padding: 5px; font-size: 15px; font-weight: bold"
@@ -193,21 +232,18 @@
         SELL
       </ion-text>
     </ion-button>
-    <div
-      style="
-        width: 1px;
-        height: 20px;
-        background: grey;
-        margin-top: 0;
-        position: relative;
-      "
-    ></div>
-    <ion-button fill="clear" expand="full" style="width: 100%">
+    <ion-button
+      fill="clear"
+      expand="full"
+      style="width: 100%"
+      [disabled]="true"
+      *ngIf="!id"
+    >
       <ion-text
-        color="primary"
+        color="danger"
         style="padding: 5px; font-size: 15px; font-weight: bold"
       >
-        BUY
+        SELL
       </ion-text>
     </ion-button>
   </div>

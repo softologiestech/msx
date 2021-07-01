@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -8,7 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
   loginData: any = [];
@@ -16,13 +15,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
     private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {}
 
-  ngOnDestroy() {
+  ionViewWillLeave() {
     this.sub.unsubscribe();
   }
 
@@ -40,16 +38,17 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.authService
             .login(doc[0].email, this.password)
             .then((data) => {
-              console.log(data.user);
+              // console.log(data.user);
               localStorage.setItem('uid', data.user.uid);
               localStorage.setItem('id', doc[0].id);
 
+              this.sub.unsubscribe();
+
               this.loadingCtrl.dismiss();
-              this.router.navigate(['/tabs/person']);
             })
             .catch((err) => {
               console.log(err);
-              this.loadingCtrl.dismiss();
+              // this.loadingCtrl.dismiss();
             });
         });
     }

@@ -2,10 +2,14 @@
   [items]="filterArray | keyvalue"
   [itemHeight]="itemHeightFn"
 >
-  <ion-card *virtualItem="let d" style="--background: #03384c">
+  <ion-card
+    *virtualItem="let d"
+    style="--background: #03384c"
+    (click)="goto(d)"
+  >
     <ion-card-header class="ion-no-margin">
       <ion-card-title style="font-size: 25px">
-        <b style="color: white">{{ d.value["symbol"] }}</b>
+        <b style="color: white">{{ d.value.symbol }}</b>
       </ion-card-title>
       <ion-card-subtitle
         style="
@@ -17,6 +21,7 @@
         <ion-text style="color: white">
           Expiry: {{ d.value.expiry_date | date }}
         </ion-text>
+        <ion-text style="color: white"> LS: {{ d.value.lot_size }} </ion-text>
         <div>
           <ion-text style="color: white">NC: </ion-text>
           <ion-text [color]="d.value.net_change >= 0 ? 'primary' : 'danger'">
@@ -39,7 +44,6 @@
             flex-direction: column;
             justify-content: space-between;
             width: 100%;
-            margin: 0 10px;
           "
         >
           <div
