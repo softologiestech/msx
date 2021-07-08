@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-nse',
@@ -7,14 +9,25 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./nse.component.scss'],
 })
 export class NseComponent implements OnInit {
+  id: string = localStorage.getItem('id');
   nseData: Array<any> = [];
+  userData: any = {};
   filterArray: Array<any> = [];
   nseArray: Array<any>;
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private dataService: DataService,
+    private router: Router,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     // console.log(this.nseArray);
+
+    this.userService.getUserData(this.id).subscribe((res) => {
+      this.userData = res;
+      // console.log(this.userData);
+    });
 
     setInterval(() => {
       this.nse();
@@ -34,7 +47,7 @@ export class NseComponent implements OnInit {
   }
 
   itemHeightFn(item, index) {
-    return 180;
+    return 170;
   }
 
   filterData() {
@@ -50,8 +63,34 @@ export class NseComponent implements OnInit {
         ) {
           // console.log(this.nseArray[j]);
           if (!this.filterArray.includes(this.nseArray[j]))
-            this.filterArray.push(this.nseData[i]);
+            this.filterArray.push({
+              ...this.nseData[i],
+              commission: this.userData.nse_commission,
+            });
+
+          // console.log(this.filterArray);
         }
+      }
+    }
+  }
+
+  goto(d: any) {
+    this.router.navigate(['/new-order-nse'], {
+      state: d,
+    });
+  }
+
+  remove(item: any) {
+    console.log(item.key);
+
+    for (var key in this.nseArray) {
+      if (
+        this.nseArray[key].value.symbol === item.value.symbol &&
+        this.nseArray[key].value.expiry_date === item.value.expiry_date
+      ) {
+        this.nseArray.splice(item.key, 1);
+        localStorage.setItem('nseArray', JSON.stringify(this.nseArray));
+        console.log(this.nseArray);
       }
     }
   }

@@ -10,7 +10,7 @@ import { DataService } from 'src/app/services/data.service';
 export class McxPage implements OnInit {
   @ViewChild('search') search: any;
 
-  serverData: Array<object> = [];
+  serverData: Array<any> = [];
   date: number;
   symbol: string = '';
   searchItems: any = [];
@@ -52,6 +52,12 @@ export class McxPage implements OnInit {
       this.fetchData();
 
       this.searchSymbol();
+
+      if (JSON.parse(localStorage.getItem('mcxArray')))
+        this.mcxArray = JSON.parse(localStorage.getItem('mcxArray'));
+      else this.mcxArray = [];
+
+      this.removeSymbol();
     }, 500);
   }
 
@@ -84,7 +90,7 @@ export class McxPage implements OnInit {
   // }
 
   itemHeightFn(item, index) {
-    return 180;
+    return 170;
   }
 
   fetchData() {
@@ -111,19 +117,33 @@ export class McxPage implements OnInit {
     });
   }
 
-  addSymbol(data: any) {
-    if (this.mcxArray.includes(data)) {
-      console.log(this.mcxArray);
-      return;
-    } else {
-      this.mcxArray.push(data);
+  addSymbol(data: any, i: number) {
+    // if (this.mcxArray.length !== 0) {
+    //   for (var key in this.mcxArray) {
+    //     // console.log(this.mcxArray);
 
-      localStorage.setItem('mcxArray', JSON.stringify(this.mcxArray));
-      console.log(this.mcxArray);
-    }
+    //     if (
+    //       this.mcxArray[key].value.symbol === data.value.symbol &&
+    //       this.mcxArray[key].value.expiry_date === data.value.expiry_date
+    //     ) {
+    //       console.log('includes');
+    //       return;
+    //     }
+    //   }
+    // }
+
+    this.mcxArray.push(data);
+
+    localStorage.setItem('mcxArray', JSON.stringify(this.mcxArray));
+    this.removeSymbol();
+    // console.log(this.mcxArray);
+
+    // this.symbolData.splice(i, 1);
+    // console.log(this.symbolData);
   }
 
   searchSymbol() {
+    // var arr = [];
     this.symbolData = [];
     this.expiry = [];
 
@@ -131,9 +151,17 @@ export class McxPage implements OnInit {
       if (
         this.serverData[key]['symbol'].toLowerCase().trim() ===
           this.symbol.toLowerCase() &&
-        this.symbol !== ''
+        this.symbol !== '' &&
+        this.serverData[key]['open'] !== 0 &&
+        this.serverData[key]['high'] !== 0 &&
+        this.serverData[key]['low'] !== 0
       ) {
+        // console.log(this.symbolData.indexOf(this.mcxArray[k]));
+
         this.symbolData.push(this.serverData[key]);
+
+        // console.log(this.symbolData);
+
         if (
           this.symbol.toLowerCase() ===
           this.serverData[key]['symbol'].toLowerCase().trim()
@@ -142,7 +170,20 @@ export class McxPage implements OnInit {
       }
     }
 
-    // console.log(this.expiry);
+    // for (var k in arr) {
+    //   var z = parseInt(k) + 1;
+    //   // console.log(k);
+    //   // if (arr[z] !== undefined)
+    //   //   console.log(Date.parse(arr[z].expiry_date));
+
+    //   var a = arr[k];
+    //   var b = arr[z];
+
+    //   if (Date.parse(arr[k].expiry_date) > Date.parse(arr[z].expiry_date)) {
+    //     this.symbolData.push(b, a);
+    //     // console.log(this.symbolData);
+    //   }
+    // }
   }
 
   getExpiry(expiry_date: string) {
@@ -174,5 +215,19 @@ export class McxPage implements OnInit {
   selectItem(s: string) {
     this.symbol = s;
     this.search.setFocus();
+  }
+
+  removeSymbol() {
+    for (var j in this.symbolData) {
+      for (var k in this.mcxArray) {
+        if (
+          this.symbolData[j].symbol === this.mcxArray[k].value.symbol &&
+          this.symbolData[j].expiry_date === this.mcxArray[k].value.expiry_date
+        ) {
+          this.symbolData.splice(parseInt(j), 1);
+          // console.log(j);
+        }
+      }
+    }
   }
 }

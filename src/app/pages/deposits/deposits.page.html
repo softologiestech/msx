@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar class="ion-no-border" color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title size="small">Deposits</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="--background: #01141b">
+  <div *ngFor="let d of deposits; let i = index">
+    <div style="margin: 10px; display: flex; align-items: center">
+      <div style="padding: 5px 25px">
+        <ion-text>{{ i+1 }}</ion-text>
+      </div>
+      <div style="display: flex; flex-direction: column">
+        <ion-text><b>Amount: </b>{{ d.amount }}</ion-text>
+        <!-- <ion-text style="padding: 3px"
+          ><b>Added By: </b>{{ d.addedByType }}</ion-text
+        > -->
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -6,14 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./quotes.page.scss'],
 })
 export class QuotesPage implements OnInit {
+  id: string = localStorage.getItem('id');
   exchange: string = 'mcx';
   exchanges: any = ['mcx', 'nse'];
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    setInterval(() => {
+      this.id = localStorage.getItem('id');
+    }, 500);
+  }
 
   getExchange() {
-    console.log(this.exchange);
+    // console.log(this.exchange);
   }
 }

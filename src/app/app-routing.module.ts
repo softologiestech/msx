@@ -76,6 +76,22 @@ const routes: Routes = [
     path: 'comex',
     loadChildren: () => import('./pages/comex/comex.module').then( m => m.ComexPageModule)
   },
+  {
+    path: 'new-order-nse',
+    loadChildren: () => import('./pages/new-order-nse/new-order-nse.module').then( m => m.NewOrderNsePageModule)
+  },
+  {
+    path: 'wallet-transactions',
+    loadChildren: () => import('./pages/wallet-transactions/wallet-transactions.module').then( m => m.WalletTransactionsPageModule)
+  },
+  {
+    path: 'deposits',
+    loadChildren: () => import('./pages/deposits/deposits.module').then( m => m.DepositsPageModule)
+  },
+  {
+    path: 'withdrawals',
+    loadChildren: () => import('./pages/withdrawals/withdrawals.module').then( m => m.WithdrawalsPageModule)
+  },
 
 ];
 @NgModule({

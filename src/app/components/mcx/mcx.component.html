@@ -3,13 +3,26 @@
   [itemHeight]="itemHeightFn"
 >
   <ion-card
-    *virtualItem="let d"
+    *virtualItem="let d; let i = index"
     style="--background: #03384c"
     (click)="goto(d)"
   >
     <ion-card-header class="ion-no-margin">
       <ion-card-title style="font-size: 25px">
-        <b style="color: white">{{ d.value.symbol }}</b>
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          "
+        >
+          <b style="color: white">{{ d.value.symbol }}</b>
+          <ion-icon
+            name="close-outline"
+            style="color: white"
+            (click)="$event.stopPropagation(); remove(d)"
+          ></ion-icon>
+        </div>
       </ion-card-title>
       <ion-card-subtitle
         style="
@@ -21,7 +34,7 @@
         <ion-text style="color: white">
           Expiry: {{ d.value.expiry_date | date }}
         </ion-text>
-        <ion-text style="color: white"> LS: {{ d.value.lot_size }} </ion-text>
+        <ion-text style="color: white"> LS: {{ d.value.lotSize }} </ion-text>
         <div>
           <ion-text style="color: white">NC: </ion-text>
           <ion-text [color]="d.value.net_change >= 0 ? 'primary' : 'danger'">

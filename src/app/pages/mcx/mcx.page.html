@@ -4,7 +4,7 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title size="small">MSX</ion-title>
-    <ion-item color="primary" slot="end" *ngIf="symbol">
+    <!-- <ion-item color="primary" slot="end" *ngIf="symbol">
       <ion-select
         interface="popover"
         [(ngModel)]="expiry_date"
@@ -14,7 +14,7 @@
           {{ e }}
         </ion-select-option>
       </ion-select>
-    </ion-item>
+    </ion-item> -->
   </ion-toolbar>
 </ion-header>
 
@@ -39,9 +39,9 @@
     [itemHeight]="itemHeightFn"
   >
     <ion-card
-      *virtualItem="let data"
+      *virtualItem="let data "
       style="--background: #03384c"
-      (click)="addSymbol(data)"
+      (click)="addSymbol(data, i)"
     >
       <ion-card-header class="ion-no-margin">
         <ion-card-title style="font-size: 25px">

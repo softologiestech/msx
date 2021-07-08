@@ -8,23 +8,5 @@
 </ion-header>
 
 <ion-content style="--background: #01141b">
-  <ion-toolbar color="primary" class="ion-no-border-top">
-    <ion-segment [(ngModel)]="iValue" (ionChange)="segmentChanged($event)">
-      <ion-segment-button *ngFor="let value of values " [value]="value">
-        <ion-label>{{ value }}</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
-
-  <div [ngSwitch]="iValue">
-    <div *ngSwitchCase="'positions'">
-      <app-positions></app-positions>
-    </div>
-    <div *ngSwitchCase="'orders'">
-      <app-orders></app-orders>
-    </div>
-    <div *ngSwitchCase="'deals'">
-      <app-deals></app-deals>
-    </div>
-  </div>
+  <app-orders></app-orders>
 </ion-content>

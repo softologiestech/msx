@@ -52,6 +52,12 @@ export class NsePage implements OnInit {
       this.fetchData();
 
       this.searchSymbol();
+
+      if (JSON.parse(localStorage.getItem('nseArray')))
+        this.nseArray = JSON.parse(localStorage.getItem('nseArray'));
+      else this.nseArray = [];
+
+      this.removeSymbol();
     }, 500);
   }
 
@@ -84,7 +90,7 @@ export class NsePage implements OnInit {
   // }
 
   itemHeightFn(item, index) {
-    return 180;
+    return 170;
   }
 
   fetchData() {
@@ -111,13 +117,28 @@ export class NsePage implements OnInit {
     });
   }
 
-  addSymbol(data: any) {
-    if (this.nseArray.includes(data)) return;
-    else {
-      this.nseArray.push(data);
-      localStorage.setItem('nseArray', JSON.stringify(this.nseArray));
-      // console.log(nseArray);
-    }
+  addSymbol(data: any, i: number) {
+    // if (this.nseArray.length !== 0) {
+    //   for (var key in this.nseArray) {
+    //     // console.log(this.nseArray);
+
+    //     if (
+    //       this.nseArray[key].value.symbol === data.value.symbol &&
+    //       this.nseArray[key].value.expiry_date === data.value.expiry_date
+    //     ) {
+    //       console.log('includes');
+    //       return;
+    //     }
+    //   }
+    // }
+
+    this.nseArray.push(data);
+
+    localStorage.setItem('nseArray', JSON.stringify(this.nseArray));
+    // console.log(this.mcxArray);
+
+    // this.symbolData.splice(i, 1);
+    // console.log(this.symbolData);
   }
 
   searchSymbol() {
@@ -128,7 +149,10 @@ export class NsePage implements OnInit {
       if (
         this.serverData[key]['symbol'].toLowerCase().trim() ===
           this.symbol.toLowerCase() &&
-        this.symbol !== ''
+        this.symbol !== '' &&
+        this.serverData[key]['open'] !== 0 &&
+        this.serverData[key]['high'] !== 0 &&
+        this.serverData[key]['low'] !== 0
       ) {
         this.symbolData.push(this.serverData[key]);
         this.expiry.push(this.serverData[key]['expiry_date']);
@@ -160,5 +184,20 @@ export class NsePage implements OnInit {
   selectItem(s: string) {
     this.symbol = s;
     this.search.setFocus();
+  }
+
+  removeSymbol() {
+    for (var j in this.symbolData) {
+      for (var k in this.nseArray) {
+        if (
+          this.symbolData[j].symbol === this.nseArray[k].value.symbol &&
+          this.symbolData[j].expiry_date === this.nseArray[k].value.expiry_date
+        ) {
+          // this.symbolData.splice(this.nseArray[j], 1);
+          this.symbolData.splice(parseInt(j), 1);
+          // console.log(this.symbolData);
+        }
+      }
+    }
   }
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 import { WalletService } from 'src/app/services/wallet.service';
+import { TradeComponent } from '../trade/trade.component';
 
 @Component({
   selector: 'app-positions',
@@ -9,10 +11,18 @@ import { WalletService } from 'src/app/services/wallet.service';
 export class PositionsComponent implements OnInit {
   id: string = localStorage.getItem('id');
   buyDetails: Array<any> = [];
+  sellDetails: Array<any> = [];
 
-  constructor(private walletService: WalletService) {}
+  constructor(
+    private walletService: WalletService,
+    private popoverController: PopoverController
+  ) {}
 
   ngOnInit() {
+    setInterval(() => {
+      this.id = localStorage.getItem('id');
+    }, 1000);
+
     this.walletService
       .getBuyDetails(this.id)
       .valueChanges()
@@ -21,9 +31,30 @@ export class PositionsComponent implements OnInit {
 
         console.log(this.buyDetails);
       });
+
+    this.walletService
+      .getSellDetails(this.id)
+      .valueChanges()
+      .subscribe((data) => {
+        this.sellDetails = data;
+
+        // console.log(this.sellDetails);
+      });
   }
 
   itemHeightFn(item, index) {
-    return 180;
+    return 150;
+  }
+
+  async openTrade(ev: any, data: any) {
+    // console.log(data);
+    const popover = await this.popoverController.create({
+      component: TradeComponent,
+      componentProps: { data: data },
+      event: ev,
+      translucent: false,
+    });
+
+    await popover.present();
   }
 }

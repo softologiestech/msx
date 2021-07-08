@@ -5,16 +5,26 @@
         <ion-title>MSX App</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content>
+    <ion-content style="--background: #01141b">
       <ion-list
         *ngFor="let pages of navigate"
         lines="none"
         class="ion-no-padding"
       >
         <ion-menu-toggle auto-hide="true">
-          <ion-item [routerLink]="pages.url" routerDirection="forward">
-            <ion-icon [name]="pages.icon" slot="start"></ion-icon>
-            {{ pages.title }}
+          <ion-item
+            [routerLink]="pages.url"
+            routerDirection="forward"
+            style="--background: #01141b"
+          >
+            <ion-icon
+              [name]="pages.icon"
+              slot="start"
+              style="color: white"
+            ></ion-icon>
+            <ion-text style="color: white">
+              {{ pages.title }}
+            </ion-text>
           </ion-item>
         </ion-menu-toggle>
       </ion-list>

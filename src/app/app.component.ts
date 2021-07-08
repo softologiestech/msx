@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,13 @@ import { Component } from '@angular/core';
 export class AppComponent {
   navigate: any;
 
-  constructor() {
+  constructor(private bgMode: BackgroundMode) {
     this.sideMenu();
   }
+
+  // ngOnInit() {
+  //   this.bgMode.enable();
+  // }
 
   sideMenu() {
     this.navigate = [
@@ -40,7 +45,7 @@ export class AppComponent {
       //   icon: 'newspaper-outline',
       // },
       {
-        title: 'Person',
+        title: 'Profile',
         url: 'tabs/person',
         icon: 'chatbubble-ellipses-outline',
       },

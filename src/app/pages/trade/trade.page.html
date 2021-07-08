@@ -7,4 +7,170 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content style="--background: #01141b">
+  <div style="margin: 10px">
+    <div class="main">
+      <ion-text class="first">
+        <b style="font-size: 20px">Balance</b>
+      </ion-text>
+      <ion-text style="font-size: 20px">
+        {{ userData.amountInWallet | number: '1.0-2' }}
+      </ion-text>
+    </div>
+    <div class="main">
+      <ion-text class="first"> <b style="font-size: 20px">Equity</b> </ion-text>
+      <ion-text style="font-size: 20px">
+        {{ equity | number: '1.0-2' }}
+      </ion-text>
+    </div>
+    <div class="main">
+      <ion-text class="first">
+        <b style="font-size: 20px">Profit/Loss</b>
+      </ion-text>
+      <ion-text style="font-size: 20px"> {{ net | number: '1.0-2' }} </ion-text>
+    </div>
+    <div class="main">
+      <ion-text class="first"> <b style="font-size: 20px">Margin</b> </ion-text>
+      <ion-text style="font-size: 20px">
+        {{ margin | number: '1.0-2' }}
+      </ion-text>
+    </div>
+    <div class="main">
+      <ion-text class="first">
+        <b style="font-size: 20px">Free Margin</b>
+      </ion-text>
+      <ion-text style="font-size: 20px">
+        {{ free_margin | number: '1.0-2' }}
+      </ion-text>
+    </div>
+    <div style="height: 1px; background: white; margin: 15px auto"></div>
+  </div>
+  <ion-virtual-scroll
+    [items]="buyDetails"
+    [itemHeight]="itemHeightFn"
+    *ngIf="buyDetails"
+  >
+    <ion-card
+      *virtualItem="let data"
+      style="--background: #03384c"
+      (click)="openTrade($event, data)"
+    >
+      <ion-card-header class="ion-no-margin">
+        <ion-card-title style="font-size: 25px">
+          <b style="color: white">{{ data.symbol }}</b>
+        </ion-card-title>
+        <ion-card-subtitle
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          "
+        >
+          <ion-text style="color: white">
+            Expiry: {{ data.expiry_date | date }}
+          </ion-text>
+          <ion-text style="color: white">
+            Time: {{ data.at | date: "dd-MMM-yy h:mm:ss a" }}
+          </ion-text>
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              width: 100%;
+            "
+          >
+            <div style="display: flex; justify-content: space-between">
+              <ion-text style="color: white">
+                <b>Buy: </b>
+                {{ data.buy | number: "1.0-2" }}
+              </ion-text>
+              <!-- <ion-text style="color: white">
+              <b>Sell </b>
+              {{ data.sell | number: "1.0-2" }}
+            </ion-text> -->
+              <ion-text style="color: white">
+                <b>Quantity: </b>
+                {{ data.quantity | number: "1.0-2" }}
+              </ion-text>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-virtual-scroll>
+  <ion-virtual-scroll
+    [items]="sellDetails"
+    [itemHeight]="itemHeightFn"
+    *ngIf="sellDetails"
+  >
+    <ion-card
+      *virtualItem="let data"
+      style="--background: #03384c"
+      (click)="openTrade($event, data)"
+    >
+      <ion-card-header class="ion-no-margin">
+        <ion-card-title style="font-size: 25px">
+          <b style="color: white">{{ data.symbol }}</b>
+        </ion-card-title>
+        <ion-card-subtitle
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          "
+        >
+          <ion-text style="color: white">
+            Expiry: {{ data.expiry_date | date }}
+          </ion-text>
+          <ion-text style="color: white">
+            Time: {{ data.at | date: "dd-MMM-yy h:mm:ss a" }}
+          </ion-text>
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              width: 100%;
+            "
+          >
+            <div style="display: flex; justify-content: space-between">
+              <ion-text style="color: white">
+                <b>Sell: </b>
+                {{ data.sell | number: "1.0-2" }}
+              </ion-text>
+              <!-- <ion-text style="color: white">
+              <b>Sell </b>
+              {{ data.sell | number: "1.0-2" }}
+            </ion-text> -->
+              <ion-text style="color: white">
+                <b>Quantity: </b>
+                {{ data.quantity | number: "1.0-2" }}
+              </ion-text>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-virtual-scroll>
+</ion-content>

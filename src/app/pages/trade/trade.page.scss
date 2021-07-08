@@ -1,0 +1,20 @@
+ion-text {
+  color: white;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+.first {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.first:after {
+  overflow: hidden;
+  content: " .............................................................................";
+}

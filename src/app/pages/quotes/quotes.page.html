@@ -27,12 +27,28 @@
 </ion-header>
 
 <ion-content style="--background: #01141b">
-  <div [ngSwitch]="exchange">
-    <div *ngSwitchCase="'mcx'">
-      <app-mcx></app-mcx>
+  <div *ngIf="id">
+    <div [ngSwitch]="exchange">
+      <div *ngSwitchCase="'mcx'">
+        <app-mcx></app-mcx>
+      </div>
+      <div *ngSwitchCase="'nse'">
+        <app-nse></app-nse>
+      </div>
     </div>
-    <div *ngSwitchCase="'nse'">
-      <app-nse></app-nse>
-    </div>
+  </div>
+  <div
+    style="
+      height: 90vh;
+      margin: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+    *ngIf="!id"
+  >
+    <ion-text style="font-size: 24px; color: white; text-align: center">
+      You must be logged in to your account to view and start trades.
+    </ion-text>
   </div>
 </ion-content>

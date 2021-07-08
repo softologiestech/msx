@@ -7,6 +7,15 @@
   <ion-text> <b>Email ID: </b>{{ userData.email }} </ion-text>
   <ion-text> <b>Phone: </b>{{ userData.phone }} </ion-text>
   <ion-text>
-    <b>Amount in Wallet: </b>{{ userData.amountInWallet | number }}
+    <b>Amount in Wallet: </b>{{ userData.amountInWallet | number: "1.0-2" }}
   </ion-text>
+  <ion-item
+    [routerLink]="[wallet - transactions]"
+    routerLinkActive="router-link-active"
+    style="--background: #01141b"
+  >
+    <ion-text>
+      <span style="color: white">Wallet Transactions</span>
+    </ion-text>
+  </ion-item>
 </div>

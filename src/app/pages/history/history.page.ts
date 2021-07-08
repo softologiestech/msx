@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./history.page.scss'],
 })
 export class HistoryPage implements OnInit {
-  values: Array<String> = ['positions', 'orders', 'deals'];
-  iValue: string = 'positions';
+  values: Array<String> = ['trade', 'history'];
+  iValue: string = 'trade';
 
   constructor() {}
 

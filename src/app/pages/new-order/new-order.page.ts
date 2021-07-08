@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { IonNav, ToastController } from '@ionic/angular';
-import { AuthService } from 'src/app/services/auth.service';
+import { ToastController } from '@ionic/angular';
 import { DataService } from 'src/app/services/data.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-new-order',
@@ -12,6 +12,9 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class NewOrderPage implements OnInit {
   info: any = {};
+  equity: number = parseInt(localStorage.getItem('equity'));
+  margin: number = parseInt(localStorage.getItem('margin'));
+  free_margin: number = parseInt(localStorage.getItem('free_margin'));
   userData: any = {};
   id: string = localStorage.getItem('id');
   newData: any = [];
@@ -25,6 +28,7 @@ export class NewOrderPage implements OnInit {
     private router: Router,
     private dataService: DataService,
     private db: AngularFirestore,
+    private userService: UserService,
     private toastController: ToastController
   ) {
     this.info = this.router.getCurrentNavigation().extras.state;
@@ -33,18 +37,19 @@ export class NewOrderPage implements OnInit {
 
   ngOnInit() {
     if (this.id) {
-      this.db
-        .doc(`user/${this.id}`)
-        .valueChanges()
-        .subscribe((data: any) => {
-          this.userData = data;
+      this.userService.getUserData(this.id).subscribe((data: any) => {
+        this.userData = data;
 
-          console.log(this.userData);
-        });
+        // console.log(this.userData);
+      });
     }
 
     setInterval(() => {
       this.fetchData();
+
+      this.equity = parseInt(localStorage.getItem('equity'));
+      this.margin = parseInt(localStorage.getItem('margin'));
+      this.free_margin = parseInt(localStorage.getItem('free_margin'));
     }, 500);
   }
 
@@ -103,12 +108,13 @@ export class NewOrderPage implements OnInit {
   // }
 
   buy(info: any) {
-    if (this.sl >= info.value.buy - 70)
-      this.presentToast("SL can't be less than 70 points");
-    else if (this.tp <= info.value.buy + 70)
-      this.presentToast("TP can't be less than 70 points");
+    // console.log(info);
+    var buy_cost = this.counter * info.value.margin;
+
+    if (this.sl >= info.value.buy - info.value.sl)
+      this.presentToast(`SL can't be less than ${info.value.sl} points`);
     else {
-      if (this.userData.amountInWallet >= info.value.buy) {
+      if (this.free_margin >= buy_cost) {
         var transactionId = Math.random().toString(36).slice(-12);
 
         this.db
@@ -119,20 +125,29 @@ export class NewOrderPage implements OnInit {
             symbol: info.value.symbol,
             expiry_date: info.value.expiry_date,
             buy: info.value.buy,
-            buy_cost: info.value.buy * this.counter * info.value.lot_size,
+            margin: info.value.margin,
+            buy_cost,
+            commission: info.value.commission,
             quantity: this.counter,
-            lot_size: info.value.lot_size,
+            lot_size: info.value.lotSize,
+            type: 'mcx',
+            trade: 'buy',
             sl: this.sl,
             tp: this.tp,
+            at: Date(),
             transactionId,
           })
           .then(() => {
-            this.db.doc(`user/${this.id}`).update({
-              amountInWallet:
-                this.userData.amountInWallet -
-                this.counter * info.value.buy * info.value.lot_size,
-              buy_quantity: this.counter,
-            });
+            // this.db.doc(`user/${this.id}`).update({
+            //     amountInWallet: this.userData.amountInWallet - buy_cost,
+            //     // buy_quantity: this.counter,
+            //   });
+
+            this.margin += this.counter * info.value.margin;
+            this.free_margin = this.equity - this.margin;
+
+            localStorage.setItem('margin', this.margin.toString());
+            localStorage.setItem('free_margin', this.free_margin.toString());
 
             this.router.navigate(['/']);
           })
@@ -142,12 +157,12 @@ export class NewOrderPage implements OnInit {
   }
 
   sell(info: any) {
-    if (this.sl >= info.value.buy - 70)
-      this.presentToast("SL can't be less than 70 points");
-    else if (this.tp <= info.value.buy + 70)
-      this.presentToast("TP can't be less than 70 points");
+    var sell_cost = info.value.margin * this.counter;
+
+    if (this.sl >= info.value.sell - info.value.sl)
+      this.presentToast(`SL can't be less than ${info.value.sl} points`);
     else {
-      if (this.userData.amountInWallet >= info.value.buy) {
+      if (this.free_margin >= sell_cost) {
         var transactionId = Math.random().toString(36).slice(-12);
 
         this.db
@@ -158,20 +173,29 @@ export class NewOrderPage implements OnInit {
             sell: info.value.sell,
             symbol: info.value.symbol,
             expiry_date: info.value.expiry_date,
-            sell_cost: info.value.sell * this.counter * info.value.lot_size,
+            sell_cost,
+            margin: info.value.margin,
+            commission: info.value.commission,
             quantity: this.counter,
-            lot_size: info.value.lot_size,
+            lot_size: info.value.lotSize,
+            type: 'mcx',
+            trade: 'sell',
             sl: this.sl,
             tp: this.tp,
+            at: Date(),
             transactionId,
           })
           .then(() => {
-            this.db.doc(`user/${this.id}`).update({
-              amountInWallet:
-                this.userData.amountInWallet +
-                this.counter * info.value.sell * info.value.lot_size,
-              sell_quantity: this.counter,
-            });
+            // this.db.doc(`user/${this.id}`).update({
+            //   amountInWallet: this.userData.amountInWallet + sell_cost,
+            //   // sell_quantity: this.counter,
+            // });
+
+            this.margin += this.counter * info.value.margin;
+            this.free_margin = this.equity - this.margin;
+
+            localStorage.setItem('margin', this.margin.toString());
+            localStorage.setItem('free_margin', this.free_margin.toString());
 
             this.router.navigate(['/']);
           })

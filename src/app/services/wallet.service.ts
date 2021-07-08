@@ -14,4 +14,24 @@ export class WalletService {
   getSellDetails(id: string) {
     return this.db.doc(`user/${id}`).collection('sell_transaction');
   }
+
+  getHistoryDetails(id: string) {
+    return this.db.doc(`user/${id}`).collection('history');
+  }
+
+  removeSellHistory(id: string, transactionId: string) {
+    this.db
+      .doc(`user/${id}`)
+      .collection('sell_transaction')
+      .doc(transactionId)
+      .delete();
+  }
+
+  getDepositDetails(id: string) {
+    return this.db.doc(`user/${id}`).collection('add_transaction');
+  }
+
+  getWithdrawalDetails(id: string) {
+    return this.db.doc(`user/${id}`).collection('withdraw_transaction');
+  }
 }

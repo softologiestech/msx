@@ -22,6 +22,7 @@ import { AppComponent } from './app.component';
 
 import { IonicGestureConfig } from '../IonicGestureConfig';
 import { LongPressModule } from 'ionic-long-press';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,6 +42,7 @@ import { LongPressModule } from 'ionic-long-press';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HAMMER_GESTURE_CONFIG, useClass: IonicGestureConfig },
     HTTP,
+    BackgroundMode,
   ],
   bootstrap: [AppComponent],
 })

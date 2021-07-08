@@ -32,8 +32,17 @@ export class LoginComponent implements OnInit {
         .findData('user', this.username)
         .valueChanges()
         .subscribe((doc: any) => {
-          this.loginData = doc;
-          // console.log(this.loginData[0]);
+          this.loginData = doc[0];
+          // console.log(this.loginData);
+
+          if (!localStorage.getItem('equity'))
+            localStorage.setItem('equity', this.loginData.amountInWallet);
+
+          if (!localStorage.getItem('free_margin'))
+            localStorage.setItem('free_margin', this.loginData.amountInWallet);
+
+          if (!localStorage.getItem('margin'))
+            localStorage.setItem('margin', '0');
 
           this.authService
             .login(doc[0].email, this.password)

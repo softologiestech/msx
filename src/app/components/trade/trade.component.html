@@ -1,0 +1,103 @@
+<ion-card style="--background: #03384c">
+  <ion-card-header class="ion-no-margin">
+    <ion-card-title style="font-size: 25px">
+      <b style="color: white">{{ tradeData.symbol }}</b>
+    </ion-card-title>
+    <ion-card-subtitle
+      style="display: flex; align-items: center; justify-content: space-between"
+    >
+      <ion-text style="color: white">
+        Expiry: {{ tradeData.expiry_date | date }}
+      </ion-text>
+      <div>
+        <ion-text style="color: white">NC: </ion-text>
+        <ion-text [color]="tradeData.net_change >= 0 ? 'primary' : 'danger'">
+          {{ tradeData.net_change | number: "1.0-2" }}
+        </ion-text>
+      </div>
+    </ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <div
+      style="display: flex; justify-content: space-between; align-items: center"
+    >
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          width: 100%;
+        "
+      >
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+          "
+        >
+          <ion-text
+            style="font-size: 20px; font-weight: bold"
+            [color]="
+              tradeData.buy > tradeData.last_price ? 'primary' : 'danger'
+            "
+          >
+            {{ tradeData.buy | number: "1.0-2" }}
+          </ion-text>
+
+          <ion-text
+            style="font-size: 20px; font-weight: bold"
+            [color]="
+              tradeData.sell > tradeData.last_price ? 'primary' : 'danger'
+            "
+          >
+            {{ tradeData.sell | number: "1.0-2" }}
+          </ion-text>
+        </div>
+        <!-- <div style="display: flex; justify-content: space-between">
+          <ion-text style="color: white">
+            <b>O: </b>
+            {{ tradeData.open | number: "1.0-2" }}
+          </ion-text>
+          <ion-text style="color: white">
+            <b>H: </b>
+            {{ tradeData.high | number: "1.0-2" }}
+          </ion-text>
+          <ion-text style="color: white">
+            <b>L: </b>
+            {{ tradeData.low | number: "1.0-2" }}
+          </ion-text>
+          <ion-text style="color: white">
+            <b>LP: </b>
+            {{ tradeData.last_price | number: "1.0-2" }}
+          </ion-text>
+        </div> -->
+      </div>
+    </div>
+    <!-- <div style="display: flex; align-items: center; margin: 10px 0"> -->
+    <!-- <ion-button
+        fill="clear"
+        style="flex: 1"
+        color="primary"
+        (click)="buy(data)"
+        >Buy</ion-button
+      > -->
+    <ion-button
+      expand="block"
+      color="danger"
+      (click)="sell(data, tradeData)"
+      *ngIf="data.trade === 'buy'"
+    >
+      Sell
+    </ion-button>
+    <ion-button
+      expand="block"
+      color="danger"
+      (click)="buy(data, tradeData)"
+      *ngIf="data.trade === 'sell'"
+    >
+      Buy
+    </ion-button>
+    <!-- </div> -->
+  </ion-card-content>
+</ion-card>

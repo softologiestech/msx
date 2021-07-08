@@ -19,7 +19,7 @@ export class ComexPage implements OnInit {
   }
 
   itemHeightFn(item, index) {
-    return 180;
+    return 145;
   }
 
   fetchData() {

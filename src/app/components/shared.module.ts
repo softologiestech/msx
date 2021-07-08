@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { TradeComponent } from './trade/trade.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { RouterModule } from '@angular/router';
     NseComponent,
     LoginComponent,
     ProfileComponent,
+    TradeComponent,
   ],
   exports: [
     PositionsComponent,
@@ -41,6 +43,7 @@ import { RouterModule } from '@angular/router';
     NseComponent,
     LoginComponent,
     ProfileComponent,
+    TradeComponent,
   ],
   imports: [CommonModule, IonicModule, FormsModule, RouterModule],
 })

@@ -1,3 +1,72 @@
-<p>
-  orders works!
-</p>
+<ion-virtual-scroll [items]="history" [itemHeight]="itemHeightFn">
+  <ion-card *virtualItem="let data" style="--background: #03384c">
+    <ion-card-header class="ion-no-margin">
+      <ion-card-title style="font-size: 25px">
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          "
+        >
+          <b style="color: white">{{ data.symbol }}</b>
+          <!-- <ion-icon
+            name="close-outline"
+            style="color: white"
+            (click)="$event.stopPropagation(); remove(data)"
+          ></ion-icon> -->
+        </div>
+      </ion-card-title>
+      <ion-card-subtitle
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        "
+      >
+        <ion-text style="color: white">
+          Expiry: {{ data.expiry_date | date }}
+        </ion-text>
+        <ion-text style="color: white">
+          Time: {{ data.at | date: "dd-MMM-yy h:mm:ss a" }}
+        </ion-text>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-text style="color: white">
+        <b>Sell Cost:</b> {{ data.sell_cost | number: "1.0-2" }}
+      </ion-text>
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+          "
+        >
+          <div style="display: flex; justify-content: space-between">
+            <ion-text style="color: white">
+              <b>Buy: </b>
+              {{ data.buy | number: "1.0-2" }}
+            </ion-text>
+            <ion-text style="color: white">
+              <b>Sell: </b>
+              {{ data.sell | number: "1.0-2" }}
+            </ion-text>
+            <ion-text style="color: white">
+              <b>Quantity: </b>
+              {{ data.quantity | number: "1.0-2" }}
+            </ion-text>
+          </div>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-virtual-scroll>
